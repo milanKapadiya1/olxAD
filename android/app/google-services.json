@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "829680860693",
+    "project_id": "olxad-507e6",
+    "storage_bucket": "olxad-507e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829680860693:android:561f3838e04cbd8eac981c",
+        "android_client_info": {
+          "package_name": "com.example.olxad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8nN45ZcYxgnL5HnZUNESjy-mnACPLYuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
