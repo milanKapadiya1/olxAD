@@ -41,8 +41,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB4fl3FY3Osoo4elK6_5bQpmaUgyKX_2F0',
-    appId: '1:829680860693:web:2b67f435201e9314ac981c',
+    apiKey: 'AIzaSy',
+    appId: '1',
     messagingSenderId: '829680860693',
     projectId: 'olxad-507e6',
     authDomain: 'olxad-507e6.firebaseapp.com',
