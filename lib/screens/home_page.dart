@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:olxad/widgets/card_details.dart';
 import 'package:olxad/widgets/cards.dart';
 
 class HomePage extends StatefulWidget {
@@ -135,27 +136,36 @@ class _HomePageState extends State<HomePage> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: [
-                CardsCustom(
-                  image: Image.asset('assets/images/car.png'),
-                  text: 'Car',
-                ),
-                CardsCustom(
-                  image: Image.asset('assets/images/car.png'),
-                  text: 'Car',
-                ),
-                 CardsCustom(
-                  image: Image.asset('assets/images/car.png'),
-                  text: 'Car',
-                ),
-                CardsCustom(
-                  image: Image.asset('assets/images/car.png'),
-                  text: 'Car',
-                ),
-            
-              ],
+              children: List.generate(cardDetails.length, (index) {
+                final card = cardDetails[index];
+                return CardsCustom(
+                  image: Image.asset(
+                    'assets/images/${card.image}',
+                    fit: BoxFit.contain,
+                  ),
+                  text: card.text,
+                );
+              }),
             ),
-          )
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(cardDetails.length, (index) {
+                final card = cardDetails[index];
+                return CardsCustom(
+                  image: Image.asset(
+                    'assets/images/${card.image}',
+                    fit: BoxFit.contain,
+                  ),
+                  text: card.text,
+                );
+              }),
+            ),
+          ),
         ],
       ),
     ));

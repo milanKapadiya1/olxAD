@@ -21,7 +21,7 @@ class CardsCustom extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: image,
+                  child: image
                 ), 
               ),
               SizedBox(height: 6,),
