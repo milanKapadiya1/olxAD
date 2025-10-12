@@ -19,14 +19,14 @@ class LogoLocation extends StatelessWidget {
               Icon(
                 Icons.location_on_outlined,
                 size: 24,
-                color: const Color.fromARGB(255, 36, 36, 36),
+                color: const Color.fromARGB(255, 60, 60, 60),
               ),
               SizedBox(
                 width: 4,
               ),
               Text(
                 'India',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 60, 60, 60)),
               ),
               SizedBox(
                 width: 4,
@@ -34,6 +34,7 @@ class LogoLocation extends StatelessWidget {
               Icon(
                 Icons.arrow_drop_down,
                 size: 18,
+                color: Color.fromARGB(255, 60, 60, 60),
               )
             ],
           )

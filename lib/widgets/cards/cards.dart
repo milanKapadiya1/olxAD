@@ -13,10 +13,10 @@ class CardsCustom extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height:80,
-                width: 80,
+                height:65,
+                width: 65,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 238, 238, 238),
+                  color: const Color.fromARGB(255, 235, 239, 246),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
@@ -26,9 +26,9 @@ class CardsCustom extends StatelessWidget {
               ),
               SizedBox(height: 6,),
               Text(text, style: TextStyle(
-                fontSize: 20,
+                fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Colors.black,
+                color: const Color.fromARGB(255, 65, 65, 65),
               ),),
             ],
           ),
