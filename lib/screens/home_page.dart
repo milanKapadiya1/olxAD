@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
-import 'package:olxad/widgets/Ads%20card/ads_catd.dart';
+import 'package:olxad/widgets/Ads%20card/ads_card.dart';
+import 'package:olxad/widgets/navigation/custom_navigation.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
 import 'package:olxad/widgets/topbar/search_bar.dart';
 
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   String? selectedLocation;
+
   bool isLoading = false;
   final List<String> locations = [
     'Ahmedabad',
@@ -133,30 +135,45 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         )
-                      : cityAds.isEmpty
-                          ? const Text('No ads found')
-                          : Flexible(
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(8),
-                                itemCount: cityAds.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                  childAspectRatio: 0.75,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return AdCard(ad: cityAds[index]);
-                                },
-                              ),
-                            )),
+                      : isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : cityAds.isEmpty
+                              ? const Text('No ads found')
+                              : Column(
+                                  children: [
+                                    Text('Ads based on location'),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    GridView.builder(
+                                      shrinkWrap: true,
+                                      padding: const EdgeInsets.all(8),
+                                      itemCount: cityAds.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 8,
+                                        crossAxisSpacing: 8,
+                                        childAspectRatio: 0.64,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return AdCard(ad: cityAds[index]);
+                                      },
+                                    ),
+                                  ],
+                                )),
             ],
           ),
+          
         ],
+        
       ),
-      // bottomNavigationBar: BottomNavigationBar(items: items),
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: CustomBottomnav(),
+      ),
     ));
   }
 }

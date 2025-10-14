@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CardsCustom extends StatelessWidget {
   final Image image;
   final String text;
+  
   const CardsCustom({super.key,required this.image, required this.text});
 
   @override
@@ -12,6 +13,7 @@ class CardsCustom extends StatelessWidget {
       child: Container(
           child: Column(
             children: [
+              
               Container(
                 height:65,
                 width: 65,
