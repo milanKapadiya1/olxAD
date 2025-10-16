@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:olxad/onboarding/auth/registration.dart';
-import 'package:olxad/screens/home_page.dart';
+import 'package:olxad/screens/auth_wrap.dart';
+import 'package:olxad/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -11,8 +11,10 @@ Future<void> main() async {
   );
   runApp(const MyApp());
 }
+// pohUk0ryJdPtdhbcSRiuuTGiUqA3 //
 
 class MyApp extends StatelessWidget {
+  
   const MyApp({super.key});
 
   @override
@@ -23,8 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home:  RegistrationScreen(),
-      home:  HomePage(),
+      home: SplashScreen(),
     );
   }
 }
