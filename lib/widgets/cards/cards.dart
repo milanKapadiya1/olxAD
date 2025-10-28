@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardsCustom extends StatelessWidget {
   final Image image;
@@ -9,26 +10,26 @@ class CardsCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.only(right: 6, left: 18),
+      padding: EdgeInsets.only(right: 6.w, left: 18.w),
       child: Container(
           child: Column(
             children: [
               
               Container(
-                height:65,
-                width: 65,
+                height:58.h,
+                width: 58.w,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 235, 239, 246),
-                  borderRadius: BorderRadius.circular(12),
+                  color: const Color.fromARGB(255, 239, 246, 255),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.w),
                   child: image
                 ), 
               ),
-              SizedBox(height: 6,),
+              SizedBox(height: 6.h,),
               Text(text, style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
                 color: const Color.fromARGB(255, 65, 65, 65),
               ),),

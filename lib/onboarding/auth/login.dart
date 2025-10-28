@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:olxad/onboarding/auth/registration.dart';
 import 'package:olxad/screens/home_page.dart';
 import 'package:olxad/util/snack_bar.dart';
 
@@ -92,8 +94,8 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: [
                     const Spacer(),
-                    Image.asset('assets/images/olxLogo.png', height: 50),
-                    const SizedBox(height: 20),
+                    Image.asset('assets/images/olxLogo.png', height: 50.h),
+                    SizedBox(height: 20.h),
                     Container(
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
@@ -112,30 +114,30 @@ class _LoginState extends State<Login> {
                           filled: true,
                           fillColor: Colors.white,
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 215, 215, 215),
                                 width: 2),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Colors.lightBlue, width: 2),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Container(
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
@@ -155,37 +157,37 @@ class _LoginState extends State<Login> {
                           filled: true,
                           fillColor: Colors.white,
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 215, 215, 215),
                                 width: 2),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Colors.lightBlue, width: 2),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 34),
+                    SizedBox(height: 34.h),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _handleSignIn,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          padding: EdgeInsets.symmetric(vertical: 14.h),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
                           ),
@@ -194,7 +196,7 @@ class _LoginState extends State<Login> {
                           "Login",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -202,7 +204,7 @@ class _LoginState extends State<Login> {
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 24),
+                      padding: EdgeInsets.only(bottom: 24.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -215,7 +217,7 @@ class _LoginState extends State<Login> {
                                Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Login()),
+                                    builder: (context) => RegistrationScreen()),
                                 (route) => false, );
                             },
                             child: const Text(

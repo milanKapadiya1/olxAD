@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
 import 'package:olxad/screens/home_page.dart';
@@ -20,7 +21,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
-  // Google Sign-In instance here
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   String? _validateEmail(String? value) {
@@ -120,14 +120,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         body: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: EdgeInsets.symmetric(horizontal: 32.w),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     const Spacer(),
-                    Image.asset('assets/images/olxLogo.png', height: 50),
-                    const SizedBox(height: 20),
+                    Image.asset('assets/images/olxLogo.png', height: 50.h),
+                    SizedBox(height: 20.h),
                     Container(
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
@@ -146,30 +146,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           filled: true,
                           fillColor: Colors.white,
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 215, 215, 215),
                                 width: 2),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide: const BorderSide(
                                 color: Colors.lightBlue, width: 2),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Container(
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
@@ -212,14 +212,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 34),
+                    SizedBox(height: 34.h),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _submitForm,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          padding: EdgeInsets.symmetric(vertical: 14.h),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
                           ),
@@ -236,7 +236,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 24),
+                      padding: EdgeInsets.only(bottom: 24.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

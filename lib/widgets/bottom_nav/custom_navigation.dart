@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomnav extends StatefulWidget {
   const CustomBottomnav({super.key});
@@ -45,7 +46,6 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
           items: [
             _buildItem('assets/icons/Home.svg', 0),
             _buildItem('assets/icons/Heart.svg', 1),
-            // Placeholder for the center FAB
             const BottomNavigationBarItem(
               icon: SizedBox.shrink(),
               label: '',
@@ -55,20 +55,21 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
           ],
         ),
         Positioned(
-          bottom: 24,
+          bottom: 24.h,
           child: GestureDetector(
             onTap: () {
               print("Center button tapped");
+              
             },
             child: Container(
-              height: 60, 
-              width: 60,
+              height: 60.h, 
+              width: 60.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: const SweepGradient(
                   colors: _gradientColors,
-                  startAngle: 1.5708, // Start at the top (90 degrees or pi/2 radians)
-                  endAngle: 7.85398, // Sweep 2*pi
+                  startAngle: 1.5708, 
+                  endAngle: 7.85398, 
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -80,8 +81,8 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
               ),
               child: Center(
                 child: Container(
-                  height:50, 
-                  width: 50,
+                  height:50.h, 
+                  width: 50.w,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
@@ -89,7 +90,7 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
                   child: Icon(
                     Icons.add,
                     color: _selectedColor, 
-                    size: 30,
+                    size: 30.sp,
                   ),
                 ),
               ),
@@ -101,16 +102,14 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
   }
 
   BottomNavigationBarItem _buildItem(String asset, int index) {
-    final isSelected = _currentNavIndex == index;
-
-    return BottomNavigationBarItem(
+  return BottomNavigationBarItem(
       icon: SvgPicture.asset(
         asset,
         height: 24,
         width: 24,
         colorFilter: const ColorFilter.mode(unselectedColor, BlendMode.srcIn),
       ),
-      activeIcon: Column(
+          activeIcon: Column(
         children: [
           SvgPicture.asset(
             asset,
@@ -119,13 +118,13 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
             colorFilter:
                 const ColorFilter.mode(_selectedColor, BlendMode.srcIn),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Container(
-            height: 5,
-            width: 10,
+            height: 5.h,
+            width: 10.w,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 74, 28, 238),
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(18.r),
             ),
           ),
         ],

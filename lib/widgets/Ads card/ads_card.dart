@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
 
 class AdCard extends StatelessWidget {
-  
   final Ad ad;
 
   const AdCard({super.key, required this.ad});
@@ -10,18 +10,17 @@ class AdCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color.fromARGB(255, 241, 246, 247),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            
             child: Image.network(
-              
               ad.image,
-              height: 120,
+              height: 120.h,
               width: double.infinity,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, loadingProgress) {
@@ -38,44 +37,49 @@ class AdCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   ad.title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   ad.desc,
-                  style: const TextStyle(
-                      fontSize: 14, color: Color.fromARGB(255, 49, 49, 49)),
+                  style: TextStyle(
+                      fontSize: 14.sp, color: Color.fromARGB(255, 49, 49, 49)),
                 ),
-                const SizedBox(
-                  height: 4,
+                SizedBox(
+                  height: 4.h,
                 ),
                 Row(
                   children: [
-                    Text('Price :', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),),
+                    Text(
+                      'Price :',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w600),
+                    ),
                     Text(ad.price.toString(),
-                        style: const TextStyle(
-                            fontSize: 14, color: Color.fromARGB(255, 49, 49, 49))),
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Color.fromARGB(255, 49, 49, 49))),
                   ],
                 ),
                 SizedBox(
-                  height: 6,
+                  height: 6.h,
                 ),
                 Row(
                   children: [
                     Icon(Icons.location_on_outlined),
                     Text(ad.location,
-                        style: const TextStyle(
-                            fontSize: 14,
+                        style: TextStyle(
+                            fontSize: 14.sp,
                             color: Color.fromARGB(255, 49, 49, 49))),
                   ],
-                )
+                ),
               ],
             ),
           ),
