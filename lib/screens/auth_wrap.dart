@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:olxad/onboarding/auth/registration.dart';
 import 'package:olxad/screens/home_page.dart';
+import 'package:olxad/screens/home_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -16,7 +17,7 @@ class AuthWrapper extends StatelessWidget {
         }
 
         if (snapshot.hasData) {
-          return const HomePage();
+          return const HomeScreen();
         }
 
         return const RegistrationScreen();

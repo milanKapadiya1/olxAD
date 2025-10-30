@@ -3,14 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomnav extends StatefulWidget {
-  const CustomBottomnav({super.key});
+  final int currentIndex;
+  final ValueChanged<int> ontimeSelected;
+  const CustomBottomnav({super.key, required this.currentIndex, required this.ontimeSelected});
 
   @override
   State<CustomBottomnav> createState() => _CustomBottomnavState();
 }
 
 class _CustomBottomnavState extends State<CustomBottomnav> {
-  int _currentNavIndex = 0;
+  // int _currentNavIndex = 0;
 
   static const Color _selectedColor = Color.fromARGB(255, 88, 151, 223);
   static const Color unselectedColor = Color(0xFFA2A2A2);
@@ -22,11 +24,11 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
     Color(0xFF34C759), 
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentNavIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _currentNavIndex = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
-          currentIndex: _currentNavIndex,
-          onTap: _onItemTapped,
+          currentIndex: widget.currentIndex,
+          onTap: widget.ontimeSelected,
           items: [
             _buildItem('assets/icons/Home.svg', 0),
             _buildItem('assets/icons/Heart.svg', 1),
@@ -50,8 +52,8 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
               icon: SizedBox.shrink(),
               label: '',
             ),
-            _buildItem('assets/icons/Bag.svg', 3),
-            _buildItem('assets/icons/usersvg.svg', 4),
+            _buildItem('assets/icons/Bag.svg', 2),
+            _buildItem('assets/icons/usersvg.svg', 3),
           ],
         ),
         Positioned(

@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 import 'package:olxad/model/ad_model.dart';
-import 'package:olxad/widgets/Ads%20card/ads_card.dart';
 import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
 import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
-import 'package:olxad/widgets/tabbar/custom_tab.dart';
 import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
 import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
@@ -121,13 +118,10 @@ class _HomePageState extends State<HomePage> {
                 selectedIndex: selectedIndex,
                 onTabSelected: _handleTabSelected),
           ),
-          ExpandedGrid(isLoading: isLoading, cityAds: cityAds)
+          ExpandedGrid(isLoading: isLoading, cityAds: cityAds),
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        height: 70,
-        child: CustomBottomnav(),
-      ),
+     
     ));
   }
 }

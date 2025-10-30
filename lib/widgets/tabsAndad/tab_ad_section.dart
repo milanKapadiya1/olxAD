@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/widgets/tabbar/custom_tab.dart';
 
 class TabAdSection extends StatelessWidget {
