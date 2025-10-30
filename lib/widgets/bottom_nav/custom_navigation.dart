@@ -51,7 +51,7 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
               label: '',
             ),
             _buildItem('assets/icons/Bag.svg', 3),
-            _buildItem('assets/icons/Notification.svg', 4),
+            _buildItem('assets/icons/usersvg.svg', 4),
           ],
         ),
         Positioned(

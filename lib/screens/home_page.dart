@@ -8,6 +8,8 @@ import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
 import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
 import 'package:olxad/widgets/tabbar/custom_tab.dart';
+import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
+import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
 import 'package:olxad/widgets/topbar/search_bar.dart';
 
@@ -20,9 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
-  String? selectedLocation;
   final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
-  final PageController pageController = PageController();
   bool isLoading = false;
   final List<String> locations = [
     'Ahmedabad',
@@ -31,22 +31,10 @@ class _HomePageState extends State<HomePage> {
     'Chandkheda',
     'Gandhinagar',
   ];
-  // final List<Widget> contentWidgets = const [
-  //   Center(
-  //       child:
-  //           Text('Content for Ahmedabad Ads', style: TextStyle(fontSize: 20))),
-  //   Center(
-  //       child: Text('Content for Mumbai Ads', style: TextStyle(fontSize: 20))),
-  //   Center(
-  //       child: Text('Content for Delhi Ads', style: TextStyle(fontSize: 20))),
-  //   Center(
-  //       child:
-  //           Text('Content for Chandkheda Ads', style: TextStyle(fontSize: 20))),
-  //   Center(
-  //       child: Text('Content for Gandhinagar Ads',
-  //           style: TextStyle(fontSize: 20))),
-  // ];
-  List<Ad> cityAds = []; //this will hold object of ad class/
+
+  List<Ad> cityAds = [];
+  //this will hold object of ad class, inside object we have all fields like img, title, description etc every object
+  // will have this so list of object.
 
   void _handleTabSelected(int peraindex) {
     selectedIndex.value = peraindex;
@@ -75,11 +63,12 @@ class _HomePageState extends State<HomePage> {
       isLoading = false;
     });
   }
+
   @override
-void initState() {
-  super.initState();
-  fatchcityAds(locations[selectedIndex.value]);
-}
+  void initState() {
+    super.initState();
+    fatchcityAds(locations[selectedIndex.value]);
+  }
 
   @override
   void dispose() {
@@ -91,7 +80,7 @@ void initState() {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: [
           SizedBox(
@@ -127,62 +116,12 @@ void initState() {
           ),
           Padding(
             padding: EdgeInsets.only(left: 0.w),
-            child: Column(
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 24.w,
-                      ),
-                      ValueListenableBuilder<int>(
-                        valueListenable: selectedIndex,
-                        builder: (context, value, child) {
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                                children:
-                                    List.generate(locations.length, (indexM) {
-                              return CustomTab(
-                                myText: locations[indexM],
-                                isSelected: value == indexM,
-                                myIndex: indexM,
-                                onTabSelected: _handleTabSelected,
-                              );
-                            })),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 18.h),
-              ],
-            ),
+            child: TabAdSection(
+                locations: locations,
+                selectedIndex: selectedIndex,
+                onTabSelected: _handleTabSelected),
           ),
-          Expanded(
-            child: isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : cityAds.isEmpty
-                    ?  Center(child: Lottie.asset('assets/animation/error.json',height: 300))
-                    : GridView.builder(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 8.h),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, 
-                          mainAxisSpacing: 12.h, 
-                          crossAxisSpacing: 12.w, 
-                          childAspectRatio:
-                              0.60.h, //  Adjust height/width ratio
-                        ),
-                        itemCount: cityAds.length,
-                        itemBuilder: (context, index) {
-                          final ad = cityAds[index];
-                          return AdCard(ad: ad);
-                        },
-                      ),
-          ),
+          ExpandedGrid(isLoading: isLoading, cityAds: cityAds)
         ],
       ),
       bottomNavigationBar: SizedBox(

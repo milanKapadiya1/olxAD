@@ -44,7 +44,7 @@ class AdCard extends StatelessWidget {
                 Text(
                   ad.title,
                   style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Color.fromARGB(255, 49, 49, 49)),
                 ),
                 SizedBox(height: 4.h),
                 Text(
@@ -58,14 +58,15 @@ class AdCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Price :',
+                      'Price : ',
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w600),
+                          color: const Color.fromARGB(255, 54, 54, 54), fontWeight: FontWeight.w600),
                     ),
                     Text(ad.price.toString(),
                         style: TextStyle(
                             fontSize: 14.sp,
-                            color: Color.fromARGB(255, 49, 49, 49))),
+                            color: Color.fromARGB(255, 49, 49, 49),
+                            fontWeight: FontWeight.w600)),
                   ],
                 ),
                 SizedBox(
@@ -73,7 +74,7 @@ class AdCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.location_on_outlined),
+                    Icon(Icons.location_on_outlined, color: Colors.black ),
                     Text(ad.location,
                         style: TextStyle(
                             fontSize: 14.sp,
