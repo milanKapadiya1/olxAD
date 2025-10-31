@@ -3,11 +3,13 @@ class UserDetails {
    String? email;
    String? password;
    String? location;
+   String? userName;
   UserDetails({
     required this.uid,
     this.email,
      this.password,
-    this.location
+    this.location,
+    this.userName
   });
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
@@ -15,6 +17,7 @@ class UserDetails {
         email: json["email"],
         password: json["password"],
         location: json["location"],
+        userName: json["userName"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:olxad/screens/createad.dart';
 import 'package:olxad/screens/home_page.dart';
 import 'package:olxad/screens/like_screen.dart';
 import 'package:olxad/screens/profile_screen.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
    const HomePage(),
    const LikeScreen(),
+   const Createad(),
    const PurchaseScreen(),
    const ProfileScreen(),
   ];
