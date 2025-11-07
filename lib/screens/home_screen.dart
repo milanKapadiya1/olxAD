@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:olxad/screens/createad.dart';
 import 'package:olxad/screens/home_page.dart';
@@ -14,14 +15,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+// //  final  emailController = TextEditingController();
+//     final email = FirebaseAuth.instance.currentUser?.email;
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-   const HomePage(),
-   const LikeScreen(),
-   const Createad(),
-   const PurchaseScreen(),
-   const ProfileScreen(),
+    const HomePage(),
+    const LikeScreen(),
+    Createad(),
+    const PurchaseScreen(),
+    const ProfileScreen(),
   ];
   void _onItemSelected(int index) {
     setState(() {
@@ -31,17 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: 
-    Scaffold(
-      body: _pages[_selectedIndex],
-       bottomNavigationBar: SizedBox(
-        height: 70,
-        child: CustomBottomnav(
-          currentIndex:_selectedIndex ,
-          ontimeSelected:_onItemSelected ,
+    return SafeArea(
+      child: Scaffold(
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: SizedBox(
+          height: 70,
+          child: CustomBottomnav(
+            currentIndex: _selectedIndex,
+            ontimeSelected: _onItemSelected,
+          ),
         ),
       ),
-    ),
     );
   }
 }

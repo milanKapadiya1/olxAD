@@ -21,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -111,6 +111,52 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     }
   }
+  Future<void> _googleSignIn() async {
+  setState(() {
+    isLoading = true; // Step 1: Start loading animation or disable button
+  });
+
+  try {
+
+    // Step 3: Authenticate user (open Google account chooser)
+    final googleSignInAccount = await googleSignIn.authenticate();
+
+    // Step 5: Get authentication tokens from Google
+    final googleAuth = googleSignInAccount.authentication;
+
+    // Step 6: Create Firebase credential using Google token
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+    
+
+    // Step 7: Sign in to Firebase using Google credential
+    final firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signInWithCredential(credential);
+
+    // Step 8: Ensure widget is still mounted before navigation
+    if (!mounted) return;
+
+    // Step 9: Go to HomePage after successful sign-in
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  } catch (e) {
+    // Step 10: Show any errors
+    if (mounted) {
+      AppConstans.showSnackBar(context, message: e.toString());
+    }
+  } finally {
+    // Step 11: Stop loading spinner in all cases
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +272,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         child: const Text(
                           "Sign Up",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h,),
+                     SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _googleSignIn,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: EdgeInsets.symmetric(vertical: 14.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        child: const Text(
+                          "Sign Up with google",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

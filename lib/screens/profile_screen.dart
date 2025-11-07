@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:olxad/model/user_data.dart';
+import 'package:olxad/onboarding/auth/login.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -91,6 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void dispose() {
     emailController.dispose();
+    usernameController.dispose();
     super.dispose();
   }
 
@@ -135,6 +137,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   : null, // disables button automatically
               child: Text('Add username'),
             ),
+            SizedBox(
+              height: 20.h,
+            ),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                        const Color.fromARGB(255, 255, 70, 57))),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                    (route) => false,
+                  );
+                },
+                child: Text(
+                  'log out',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
       ),

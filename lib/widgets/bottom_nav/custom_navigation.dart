@@ -52,15 +52,17 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
               icon: SizedBox.shrink(),
               label: '',
             ),
-            _buildItem('assets/icons/Bag.svg', 2),
-            _buildItem('assets/icons/usersvg.svg', 3),
+            _buildItem('assets/icons/Bag.svg',3 ),
+            _buildItem('assets/icons/usersvg.svg', 4),
           ],
         ),
         Positioned(
           bottom: 24.h,
           child: GestureDetector(
             onTap: () {
-              print("Center button tapped");
+              // Select the center item (index 2) so the parent HomeScreen
+              // shows the Createad page. Parent provided `ontimeSelected`.
+              widget.ontimeSelected(2);
               
             },
             child: Container(
