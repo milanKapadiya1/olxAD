@@ -12,7 +12,7 @@
 .swiftpm/
 migrate_working_dir/
 *.json
-firebase.json
+/firebase.json
 
 # IntelliJ related
 *.iml

@@ -8,6 +8,9 @@
                     "fileOutput": "android/app/google-services.json"
                 }
             },
+
+
+            
             "dart": {
                 "lib/firebase_options.dart": {
                     "projectId": "olxad-507e6",
