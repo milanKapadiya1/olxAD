@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
-import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
 import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
 import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';

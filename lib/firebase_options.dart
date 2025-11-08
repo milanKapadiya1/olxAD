@@ -41,8 +41,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSy',
-    appId: '1',
+    apiKey: 'AIzaSyB4fl3FY3Osoo4elK6_5bQpmaUgyKX_2F0',
+    appId: '1:829680860693:web:2b67f435201e9314ac981c',
     messagingSenderId: '829680860693',
     projectId: 'olxad-507e6',
     authDomain: 'olxad-507e6.firebaseapp.com',
@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '829680860693',
     projectId: 'olxad-507e6',
     storageBucket: 'olxad-507e6.firebasestorage.app',
+    androidClientId: '829680860693-jo62jmd623fcj0k3i16utk7j1q60fvj4.apps.googleusercontent.com',
+    iosClientId: '829680860693-a1veuonmksrjdrk542pp8hr1idjkmpbc.apps.googleusercontent.com',
     iosBundleId: 'com.example.olxad',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '829680860693',
     projectId: 'olxad-507e6',
     storageBucket: 'olxad-507e6.firebasestorage.app',
+    androidClientId: '829680860693-jo62jmd623fcj0k3i16utk7j1q60fvj4.apps.googleusercontent.com',
+    iosClientId: '829680860693-a1veuonmksrjdrk542pp8hr1idjkmpbc.apps.googleusercontent.com',
     iosBundleId: 'com.example.olxad',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'olxad-507e6.firebasestorage.app',
     measurementId: 'G-2NNTCCZPYG',
   );
+
 }

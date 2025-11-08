@@ -12,7 +12,20 @@
           "package_name": "com.example.olxad"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "829680860693-jo62jmd623fcj0k3i16utk7j1q60fvj4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.olxad",
+            "certificate_hash": "616148f4aa317d963cfbbe4b233649b6ac69cae8"
+          }
+        },
+        {
+          "client_id": "829680860693-c7agq8h7dpbamv54i67kbfneuetb2uvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD8nN45ZcYxgnL5HnZUNESjy-mnACPLYuk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829680860693-c7agq8h7dpbamv54i67kbfneuetb2uvi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "829680860693-a1veuonmksrjdrk542pp8hr1idjkmpbc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.olxad"
+              }
+            }
+          ]
         }
       }
     }

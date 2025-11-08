@@ -111,52 +111,63 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     }
   }
+
   Future<void> _googleSignIn() async {
-  setState(() {
-    isLoading = true; // Step 1: Start loading animation or disable button
-  });
+    setState(() {
+      isLoading = true; // Step 1: Start loading animation or disable button
+    });
 
-  try {
+    try {
+      await googleSignIn.initialize();
 
-    // Step 3: Authenticate user (open Google account chooser)
-    final googleSignInAccount = await googleSignIn.authenticate();
+      // Step 3: Authenticate user (open Google account chooser)
+      final googleSignInAccount = await googleSignIn.authenticate(
 
-    // Step 5: Get authentication tokens from Google
-    final googleAuth = googleSignInAccount.authentication;
+      );
 
-    // Step 6: Create Firebase credential using Google token
-    final credential = GoogleAuthProvider.credential(
-      idToken: googleAuth.idToken,
-    );
-    
+      // Step 5: Get authentication tokens from Google
+      final googleAuth = googleSignInAccount.authentication;
 
-    // Step 7: Sign in to Firebase using Google credential
-    final firebaseAuth = FirebaseAuth.instance;
-    await firebaseAuth.signInWithCredential(credential);
+      // Step 6: Create Firebase credential using Google token
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
 
-    // Step 8: Ensure widget is still mounted before navigation
-    if (!mounted) return;
+      // Step 7: Sign in to Firebase using Google credential
+      final firebaseAuth = FirebaseAuth.instance;
+      await firebaseAuth.signInWithCredential(credential);
 
-    // Step 9: Go to HomePage after successful sign-in
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
-  } catch (e) {
-    // Step 10: Show any errors
-    if (mounted) {
-      AppConstans.showSnackBar(context, message: e.toString());
-    }
-  } finally {
-    // Step 11: Stop loading spinner in all cases
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
+      final user = firebaseAuth.currentUser;
+      if (user != null) {
+        final userDetais = UserDetails(
+          uid: user.uid,
+          email: user.email,
+        );
+        await _storeUserData(userDetails: userDetais);
+      }
+
+      // Step 8: Ensure widget is still mounted before navigation
+      if (!mounted) return;
+
+      // Step 9: Go to HomePage after successful sign-in
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } catch (e) {
+      // Step 10: Show any errors
+      if (mounted) {
+        AppConstans.showSnackBar(context, message: e.toString());
+      }
+    } finally {
+      // Step 11: Stop loading spinner in all cases
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -280,8 +291,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.h,),
-                     SizedBox(
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _googleSignIn,
@@ -318,7 +331,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Login()),
-                                (route) => false, 
+                                (route) => false,
                               );
                             },
                             child: const Text(
