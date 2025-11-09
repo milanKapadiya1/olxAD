@@ -1,23 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Createad extends StatelessWidget {
-  final userEmail = FirebaseAuth.instance.currentUser?.email;
-  final TextEditingController? imagurlcontroller;
-
-  final TextEditingController? titleController;
-  final TextEditingController? descController;
-  final TextEditingController? priceController;
-  final TextEditingController? locationController;
-  Createad({
+class Createad extends StatefulWidget {
+  const Createad({
     super.key,
-    this.imagurlcontroller,
-    this.titleController,
-    this.descController,
-    this.priceController,
-    this.locationController,
   });
+
+  @override
+  State<Createad> createState() => _CreateadState();
+}
+
+class _CreateadState extends State<Createad> {
+  final TextEditingController imageUrlController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+
+  final userEmail = FirebaseAuth.instance.currentUser?.email;
+
+  bool isLoading = false;
+
   InputDecoration _underlineDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
@@ -32,6 +37,49 @@ class Createad extends StatelessWidget {
         borderSide: BorderSide(color: Color(0xFF3B82F6), width: 1.5),
       ),
     );
+  }
+
+  Future<void> addAdsinfirestore() async {
+    if (titleController.text.isEmpty ||
+        descController.text.isEmpty ||
+        priceController.text.isEmpty ||
+        locationController.text.isEmpty ||
+        imageUrlController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all fields')),
+      );
+      return;
+    }
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final location = locationController.text.trim();
+      await firestore
+          .collection('/Ads')
+          .doc('ODwaKgMlJGFfyD78DP9l')
+          .collection(location)
+          .add({
+        "Image": imageUrlController.text,
+        "Title": titleController.text.trim(),
+        "description": descController.text.trim(),
+        "location": locationController.text.trim(),
+        "price": priceController.text.trim(),
+        "userEmail": userEmail,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ad uploaded successfully!')),
+      );
+    } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to upload ad: $e')),
+    );
+
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -64,7 +112,10 @@ class Createad extends StatelessWidget {
                       child: SizedBox(
                           height: 80,
                           width: 80,
-                          child: Image.asset('assets/gif/adgif.gif',color: Colors.blue,)),
+                          child: Image.asset(
+                            'assets/gif/adgif.gif',
+                            color: Colors.blue,
+                          )),
                     ),
                   ],
                 ),
@@ -72,7 +123,7 @@ class Createad extends StatelessWidget {
                   height: 50.h,
                 ),
                 TextField(
-                  controller: imagurlcontroller,
+                  controller: imageUrlController,
                   decoration: _underlineDecoration('Put image url'),
                 ),
                 SizedBox(
@@ -101,32 +152,38 @@ class Createad extends StatelessWidget {
                 ),
                 TextField(
                   controller: locationController,
-                  decoration: _underlineDecoration('Location'),
+                  decoration: _underlineDecoration(
+                      'Location Ex: Ahmedabad (start with capital latter)'),
                 ),
                 SizedBox(
                   height: 24.h,
                 ),
-                 SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: (){},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: EdgeInsets.symmetric(vertical: 14.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                          child: const Text(
-                            "Create Ad",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      isLoading ? null : addAdsinfirestore();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
                       ),
+                    ),
+                    child: isLoading?
+                    const CircularProgressIndicator(color: Colors.white,)
+                    : const
+                     Text(
+                      "Create Ad",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
