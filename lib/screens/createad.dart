@@ -46,7 +46,7 @@ class _CreateadState extends State<Createad> {
         locationController.text.isEmpty ||
         imageUrlController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all fields')),
+        const SnackBar(content: Text('Please fill all fields',),backgroundColor:Color.fromARGB(255, 194, 99, 99), ),
       );
       return;
     }
@@ -65,7 +65,7 @@ class _CreateadState extends State<Createad> {
         "Title": titleController.text.trim(),
         "description": descController.text.trim(),
         "location": locationController.text.trim(),
-        "price": priceController.text.trim(),
+        "price": int.tryParse(priceController.text.trim()),
         "userEmail": userEmail,
       });
       ScaffoldMessenger.of(context).showSnackBar(
@@ -162,6 +162,8 @@ class _CreateadState extends State<Createad> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      final userr = FirebaseAuth.instance.currentUser;
+                      print(userr?.email);
                       isLoading ? null : addAdsinfirestore();
                     },
                     style: ElevatedButton.styleFrom(

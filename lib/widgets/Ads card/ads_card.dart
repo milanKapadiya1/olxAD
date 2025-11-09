@@ -18,7 +18,7 @@ class AdCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            child: Image.network(
+            child:ad.image.isNotEmpty? Image.network(
               ad.image,
               height: 120.h,
               width: double.infinity,
@@ -34,7 +34,7 @@ class AdCard extends StatelessWidget {
                   ),
                 );
               },
-            ),
+            ) : Icon(Icons.image_not_supported, )
           ),
           Padding(
             padding: EdgeInsets.all(8.w),
