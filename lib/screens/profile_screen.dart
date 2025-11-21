@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
+import 'package:olxad/screens/flutterTab.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -105,6 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Spacer(),
             Center(
               child: Lottie.asset('assets/animation/user.json', height: 100),
             ),
@@ -155,7 +157,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Text(
                   'log out',
                   style: TextStyle(color: Colors.white),
-                ))
+                )),
+            Spacer(),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Fluttertab()));
+                },
+                child: Text(
+                  'flutter tabbar api catch',
+                  style:
+                      TextStyle(color: const Color.fromARGB(255, 0, 122, 221)),
+                )),
+            SizedBox(height: 24),
           ],
         ),
       ),

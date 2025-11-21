@@ -20,13 +20,14 @@ class _ExpandedGridState extends State<ExpandedGrid> {
     return  Expanded(
             child: widget.isLoading
                 ? Center(
-                    child: Lottie.asset('assets/animation/loadingg.json',
-                        height: 50))
+                    child: CircularProgressIndicator(),
+                    )
                 : widget.cityAds.isEmpty
                     ? Center(
                         child: Lottie.asset('assets/animation/error.json',
                             height: 300))
                     : GridView.builder(
+                      addAutomaticKeepAlives: true,
                         padding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 8.h),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

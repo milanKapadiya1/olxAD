@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
   bool isLoading = false;
@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
     'Chandkheda',
     'Gandhinagar',
   ];
+
+  final Map<String, List<Ad>> adcatch = {};
 
   List<Ad> cityAds = [];
   //this will hold object of ad class, inside object we have all fields like img, title, description etc every object
@@ -42,20 +44,37 @@ class _HomePageState extends State<HomePage> {
   final firestoredatabase = FirebaseFirestore.instance;
 
   Future<void> fatchcityAds(String cityName) async {
+    // ✅ Step 1: Check cache first
+    if (adcatch.containsKey(cityName)) {
+      setState(() {
+        cityAds = adcatch[cityName]!;
+        debugPrint('✅ Loaded $cityName ads from cache');
+      });
+      return;
+    }
+
+    // ✅ Step 2: Show loader (don't clear current list)
     setState(() {
       isLoading = true;
-      cityAds.clear();
+      // ❌ Removed cityAds.clear() — don't clear visible ads
     });
+
+    // ✅ Step 3: Fetch from Firestore
     final cityAdssnap = await firestoredatabase
         .collection('/Ads')
         .doc('ODwaKgMlJGFfyD78DP9l')
         .collection(cityName)
         .get();
-    cityAdssnap.docs
-        .map((docs) => cityAds.add(Ad.fromJson(docs.data())))
-        .toList();
 
+    final fetchedAds =
+        cityAdssnap.docs.map((docs) => Ad.fromJson(docs.data())).toList();
+
+    // ✅ Step 4: Cache it
+    adcatch[cityName] = fetchedAds;
+
+    // ✅ Step 5: Update UI
     setState(() {
+      cityAds = fetchedAds;
       isLoading = false;
     });
   }
@@ -120,7 +139,6 @@ class _HomePageState extends State<HomePage> {
           ExpandedGrid(isLoading: isLoading, cityAds: cityAds),
         ],
       ),
-     
     ));
   }
 }

@@ -20,6 +20,8 @@ dependencies:
   flutter_native_splash: ^2.4.4
   lottie: ^3.3.1
   gif: ^2.3.0
+  bloc: ^9.1.0
+  flutter_bloc: ^9.1.1
   # Responsive utility
   # flutter_screenutil provides .w, .h, .sp helpers. Added here under flutter key to keep simple.
   # The package will also be resolved by pub; if your project lists dependencies at top-level, move it there.
@@ -44,8 +46,13 @@ flutter:
     - assets/gif/
 
 flutter_native_splash:
-  color: "#ffffff"             # background color
-  image: assets/images/olxLogo.png   # your logo (put inside assets/)
+  color: "#FFFFFF"   # pure white background
+  android: true
+  ios: true
+  image: null
+
   android_12:
-    image: assets/images/olxLogo.png
-    color: "#ffffff"
+    color: "#FFFFFF"
+    image: null
+    icon_background_color: "#FFFFFF"
+

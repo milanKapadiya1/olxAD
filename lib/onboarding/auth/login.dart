@@ -84,154 +84,221 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 248, 248, 250),
         body: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    Image.asset('assets/images/olxLogo.png', height: 50.h),
-                    SizedBox(height: 20.h),
-                    Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromARGB(255, 213, 213, 213),
-                          spreadRadius: 1,
-                          blurRadius: 7,
-                          offset: Offset(0, 10),
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 40.h),
+                      // Logo
+                      Center(
+                        child: Image.asset('assets/images/olxLogo.png', height: 48.h),
+                      ),
+                      SizedBox(height: 48.h),
+                      // Title
+                      Text(
+                        'Welcome Back',
+                        style: TextStyle(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 25, 25, 35),
                         ),
-                      ]),
-                      child: TextFormField(
+                      ),
+                      SizedBox(height: 8.h),
+                      // Subtitle
+                      Text(
+                        'Sign in to your account to continue',
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          color: const Color.fromARGB(255, 120, 120, 130),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 36.h),
+                      // Email Field
+                      Text(
+                        'Email Address',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color.fromARGB(255, 25, 25, 35),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      TextFormField(
                         controller: emailController,
                         validator: _validateEmail,
                         decoration: InputDecoration(
-                          hintText: "Enter email",
-                          hintStyle: const TextStyle(color: Colors.grey),
+                          hintText: "you@example.com",
+                          hintStyle: TextStyle(
+                            color: const Color.fromARGB(255, 150, 150, 160),
+                            fontSize: 14.sp,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: const Color.fromARGB(255, 100, 100, 110),
+                            size: 20.w,
+                          ),
                           filled: true,
                           fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 215, 215, 215),
-                                width: 2),
+                              color: Color.fromARGB(255, 220, 220, 225),
+                              width: 1.5,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
-                                color: Colors.lightBlue, width: 2),
+                              color: Color.fromARGB(255, 59, 130, 246),
+                              width: 2,
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
-                            borderSide:
-                                const BorderSide(color: Colors.red, width: 2),
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 239, 68, 68),
+                              width: 1.5,
+                            ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
-                            borderSide:
-                                const BorderSide(color: Colors.red, width: 2),
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 239, 68, 68),
+                              width: 2,
+                            ),
                           ),
                         ),
+                        style: TextStyle(fontSize: 15.sp),
                       ),
-                    ),
-                    SizedBox(height: 16.h),
-                    Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromARGB(255, 213, 213, 213),
-                          spreadRadius: 1,
-                          blurRadius: 7,
-                          offset: Offset(0, 10),
+                      SizedBox(height: 22.h),
+                      // Password Field
+                      Text(
+                        'Password',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color.fromARGB(255, 25, 25, 35),
                         ),
-                      ]),
-                      child: TextFormField(
+                      ),
+                      SizedBox(height: 10.h),
+                      TextFormField(
                         controller: passwordController,
                         obscureText: true,
                         validator: _validatePassword,
                         decoration: InputDecoration(
-                          hintText: "Enter password",
-                          hintStyle: const TextStyle(color: Colors.grey),
+                          hintText: "••••••••",
+                          hintStyle: TextStyle(
+                            color: const Color.fromARGB(255, 150, 150, 160),
+                            fontSize: 14.sp,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: const Color.fromARGB(255, 100, 100, 110),
+                            size: 20.w,
+                          ),
                           filled: true,
                           fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 215, 215, 215),
-                                width: 2),
+                              color: Color.fromARGB(255, 220, 220, 225),
+                              width: 1.5,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
+                            borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
-                                color: Colors.lightBlue, width: 2),
+                              color: Color.fromARGB(255, 59, 130, 246),
+                              width: 2,
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
-                            borderSide:
-                                const BorderSide(color: Colors.red, width: 2),
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 239, 68, 68),
+                              width: 1.5,
+                            ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.r),
-                            borderSide:
-                                const BorderSide(color: Colors.red, width: 2),
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 239, 68, 68),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 15.sp),
+                      ),
+                      SizedBox(height: 28.h),
+                      // Login Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: _handleSignIn,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 59, 130, 246),
+                            elevation: 2,
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                          ),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 34.h),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _handleSignIn,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          padding: EdgeInsets.symmetric(vertical: 14.h),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 24.h),
-                      child: Row(
+                      SizedBox(height: 24.h),
+                      // Sign up link
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            "Don't have account? ",
-                            style: TextStyle(color: Colors.black87),
+                          Text(
+                            "Don't have an account? ",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: const Color.fromARGB(255, 100, 100, 110),
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
-                               Navigator.pushAndRemoveUntil(
+                              Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RegistrationScreen()),
-                                (route) => false, );
+                                  builder: (context) => const RegistrationScreen(),
+                                ),
+                                (route) => false,
+                              );
                             },
-                            child: const Text(
-                              "Create One",
+                            child: Text(
+                              "Sign Up",
                               style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                                color: const Color.fromARGB(255, 59, 130, 246),
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 40.h),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -239,10 +306,11 @@ class _LoginState extends State<Login> {
             if (isLoading)
               Positioned.fill(
                 child: Container(
-                  color:
-                      const Color.fromARGB(255, 34, 139, 238).withOpacity(0.4),
+                  color: Colors.black.withOpacity(0.3),
                   child: const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Color.fromARGB(255, 59, 130, 246),
+                    ),
                   ),
                 ),
               ),
