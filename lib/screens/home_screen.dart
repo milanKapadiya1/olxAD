@@ -5,6 +5,7 @@ import 'package:olxad/screens/like_screen.dart';
 import 'package:olxad/screens/profile_screen.dart';
 import 'package:olxad/screens/purchase_screen.dart';
 import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
+import 'package:olxad/util/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,12 +36,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppTheme.backgroundColor,
         body: _pages[_selectedIndex],
-        bottomNavigationBar: SizedBox(
-          height: 70,
-          child: CustomBottomnav(
-            currentIndex: _selectedIndex,
-            ontimeSelected: _onItemSelected,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: SizedBox(
+            height: 70,
+            child: CustomBottomnav(
+              currentIndex: _selectedIndex,
+              ontimeSelected: _onItemSelected,
+            ),
           ),
         ),
       ),

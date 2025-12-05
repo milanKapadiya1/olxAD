@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:olxad/screens/auth_wrap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/screens/splash_screen.dart';
-import 'firebase_options.dart';
+import 'package:olxad/firebase_options.dart';
+import 'package:olxad/util/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +26,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)),
-            useMaterial3: true,
-          ),
+          theme: AppTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         );
@@ -37,4 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:olxad/util/app_theme.dart';
 
 class CustomTab extends StatelessWidget {
   final String myText;
@@ -17,20 +18,20 @@ class CustomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final Color backgroundColor =
-        isSelected ? Colors.deepPurple.shade700 : Colors.white;
+        isSelected ? AppTheme.primaryColor : Colors.white;
 
-    final Color textColor = isSelected ? Colors.white : Colors.black87;
+    final Color textColor = isSelected ? Colors.white : AppTheme.textPrimary;
 
-    final Color borderColor = isSelected
-        ? Colors.deepPurple.shade700
-        : const Color.fromARGB(255, 233, 233, 233);
+    final Color borderColor =
+        isSelected ? AppTheme.primaryColor : Colors.grey.shade300;
 
     return InkWell(
       onTap: () => onTabSelected(myIndex),
-  borderRadius: BorderRadius.circular(12.r),
-      child: Container(
+      borderRadius: BorderRadius.circular(12.r),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
         margin: EdgeInsets.only(right: 10.w),
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -42,14 +43,14 @@ class CustomTab extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.deepPurple.withOpacity(0.3),
+                    color: AppTheme.primaryColor.withOpacity(0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
                 ]
               : [],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
         child: Text(
           myText,
           style: TextStyle(

@@ -1,35 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:olxad/util/app_theme.dart';
 
 class CustomBottomnav extends StatefulWidget {
   final int currentIndex;
   final ValueChanged<int> ontimeSelected;
-  const CustomBottomnav({super.key, required this.currentIndex, required this.ontimeSelected});
+  const CustomBottomnav(
+      {super.key, required this.currentIndex, required this.ontimeSelected});
 
   @override
   State<CustomBottomnav> createState() => _CustomBottomnavState();
 }
 
 class _CustomBottomnavState extends State<CustomBottomnav> {
-  // int _currentNavIndex = 0;
-
-  static const Color _selectedColor = Color.fromARGB(255, 88, 151, 223);
-  static const Color unselectedColor = Color(0xFFA2A2A2);
-
-  static const List<Color> _gradientColors = [
-    Color(0xFF34C759), 
-    Color(0xFF007AFF), 
-    Color(0xFFFFCC00),
-    Color(0xFF34C759), 
-  ];
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _currentNavIndex = index;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,8 +22,8 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
       children: [
         BottomNavigationBar(
           backgroundColor: Colors.white,
-          selectedItemColor: _selectedColor,
-          unselectedItemColor: unselectedColor,
+          selectedItemColor: AppTheme.primaryColor,
+          unselectedItemColor: AppTheme.textSecondary,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
@@ -52,7 +36,7 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
               icon: SizedBox.shrink(),
               label: '',
             ),
-            _buildItem('assets/icons/Bag.svg',3 ),
+            _buildItem('assets/icons/Bag.svg', 3),
             _buildItem('assets/icons/usersvg.svg', 4),
           ],
         ),
@@ -60,42 +44,27 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
           bottom: 24.h,
           child: GestureDetector(
             onTap: () {
-              // Select the center item (index 2) so the parent HomeScreen
-              // shows the Createad page. Parent provided `ontimeSelected`.
               widget.ontimeSelected(2);
-              
             },
             child: Container(
-              height: 60.h, 
+              height: 60.h,
               width: 60.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: const SweepGradient(
-                  colors: _gradientColors,
-                  startAngle: 1.5708, 
-                  endAngle: 7.85398, 
-                ),
+                color: AppTheme.primaryColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: AppTheme.primaryColor.withOpacity(0.4),
                     blurRadius: 10,
-                    offset: const Offset(0, 5), 
+                    offset: const Offset(0, 5),
                   ),
                 ],
               ),
               child: Center(
-                child: Container(
-                  height:50.h, 
-                  width: 50.w,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    color: _selectedColor, 
-                    size: 30.sp,
-                  ),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30.sp,
                 ),
               ),
             ),
@@ -106,29 +75,30 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
   }
 
   BottomNavigationBarItem _buildItem(String asset, int index) {
-  return BottomNavigationBarItem(
+    return BottomNavigationBarItem(
       icon: SvgPicture.asset(
         asset,
         height: 24,
         width: 24,
-        colorFilter: const ColorFilter.mode(unselectedColor, BlendMode.srcIn),
+        colorFilter:
+            const ColorFilter.mode(AppTheme.textSecondary, BlendMode.srcIn),
       ),
-          activeIcon: Column(
+      activeIcon: Column(
         children: [
           SvgPicture.asset(
             asset,
             height: 24,
             width: 24,
             colorFilter:
-                const ColorFilter.mode(_selectedColor, BlendMode.srcIn),
+                const ColorFilter.mode(AppTheme.primaryColor, BlendMode.srcIn),
           ),
           SizedBox(height: 4.h),
           Container(
             height: 5.h,
-            width: 10.w,
+            width: 5.w,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 74, 28, 238),
-              borderRadius: BorderRadius.circular(18.r),
+              color: AppTheme.accentColor,
+              shape: BoxShape.circle,
             ),
           ),
         ],

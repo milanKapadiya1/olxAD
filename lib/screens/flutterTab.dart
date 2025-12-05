@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
+import 'package:olxad/util/app_theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Fluttertab extends StatefulWidget {
   const Fluttertab({super.key});
@@ -12,8 +14,8 @@ class Fluttertab extends StatefulWidget {
 
 class _FluttertabState extends State<Fluttertab> with TickerProviderStateMixin {
   late TabController myTabController;
-  final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
-  final Color selectedColor = const Color.fromARGB(255, 77, 110, 200);
+  int currenttabIndex = 0;
+
   final List<String> cities = [
     'Ahmedabad',
     'Mumbai',
@@ -23,54 +25,45 @@ class _FluttertabState extends State<Fluttertab> with TickerProviderStateMixin {
     'Leh'
   ];
 
-  List<Ad> cityAds = [];
-  bool isLoading = false;
+  Map<String, List<Ad>> catchAdshere = {};
 
   void _handleTabSelected(int peraindex) {
-    myTabController.animateTo(peraindex);
-    selectedIndex.value = peraindex;
-    String cityName = cities[peraindex];
+    setState(() {
+      currenttabIndex = peraindex;
+    });
 
+    myTabController.animateTo(peraindex);
+
+    String cityName = cities[peraindex];
     fatchcityAds(cityName);
   }
 
   final firestoredatabase = FirebaseFirestore.instance;
 
   Future<void> fatchcityAds(String cityName) async {
-    // // ✅ Step 1: Check cache first
-    // if (adcatch.containsKey(cityName)) {
-    //   setState(() {
-    //     cityAds = adcatch[cityName]!;
-    //     debugPrint('✅ Loaded $cityName ads from cache');
-    //   });
-    //   return;
-    // }
+    await Future.delayed(Duration.zero);
+    if (catchAdshere.containsKey(cityName)) {
+      return;
+    }
 
-    // ✅ Step 2: Show loader (don't clear current list)
+    try {
+      final cityAdssnap = await firestoredatabase
+          .collection('/Ads')
+          .doc('ODwaKgMlJGFfyD78DP9l')
+          .collection(cityName)
+          .get();
 
-    setState(() {
-      // cityAds.clear() ;
-      isLoading = true;
-    });
+      final fetchedAds =
+          cityAdssnap.docs.map((docs) => Ad.fromJson(docs.data())).toList();
 
-    // ✅ Step 3: Fetch from Firestore
-    final cityAdssnap = await firestoredatabase
-        .collection('/Ads')
-        .doc('ODwaKgMlJGFfyD78DP9l')
-        .collection(cityName)
-        .get();
-
-    final fetchedAds =
-        cityAdssnap.docs.map((docs) => Ad.fromJson(docs.data())).toList();
-
-    // // ✅ Step 4: Cache it
-    // adcatch[cityName] = fetchedAds;
-
-    // ✅ Step 5: Update UI
-    setState(() {
-      cityAds = fetchedAds;
-      isLoading = false;
-    });
+      if (mounted) {
+        setState(() {
+          catchAdshere[cityName] = fetchedAds;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error fetching data: $e");
+    }
   }
 
   @override
@@ -78,20 +71,19 @@ class _FluttertabState extends State<Fluttertab> with TickerProviderStateMixin {
     super.initState();
     myTabController = TabController(length: cities.length, vsync: this);
 
-    // link tab controller changes to the valuenotifies
     myTabController.addListener(() {
-      if (myTabController.index != selectedIndex.value) {
+      if (!myTabController.indexIsChanging &&
+          myTabController.index != currenttabIndex) {
         _handleTabSelected(myTabController.index);
-        // selectedIndex.value = myTabController.index;
       }
     });
-    fatchcityAds(cities[selectedIndex.value]);
+
+    fatchcityAds(cities[currenttabIndex]);
   }
 
   @override
   void dispose() {
     myTabController.dispose();
-    selectedIndex.dispose();
     super.dispose();
   }
 
@@ -105,72 +97,75 @@ class _FluttertabState extends State<Fluttertab> with TickerProviderStateMixin {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back)),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20)),
+          title:
+              Text("Browse Ads", style: Theme.of(context).textTheme.titleLarge),
         ),
         body: Column(
           children: [
-            ValueListenableBuilder(
-              valueListenable: selectedIndex,
-              builder: (context, value, child) {
-                return TabBar(
-                  tabs: List.generate(cities.length, (index) {
-                    bool isSelected = value == index;
-                    String text = cities[index];
-                    return Tab(
-                      child: GestureDetector(
-                        onTap: () {
-
-                          _handleTabSelected(index);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 6),
-                          decoration: BoxDecoration(
-                            color:
-                                isSelected ? selectedColor : Colors.transparent,
-                            border: isSelected
-                                ? null
-                                : Border.all(
-                                    color: Colors.grey.shade400, width: 1.5),
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Center(
-                            child: Text(
-                              text,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            ),
-                          ),
+            SizedBox(height: 12.h),
+            TabBar(
+              tabs: List.generate(cities.length, (index) {
+                bool isSelected = currenttabIndex == index;
+                String text = cities[index];
+                return Tab(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: isSelected ? AppTheme.primaryColor : Colors.white,
+                      borderRadius: BorderRadius.circular(30.r),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: AppTheme.primaryColor.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              )
+                            ]
+                          : [],
+                      border: isSelected
+                          ? null
+                          : Border.all(color: Colors.grey.shade300, width: 1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight:
+                              isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : AppTheme.textSecondary,
                         ),
                       ),
-                    );
-                  }),
-                  labelPadding: EdgeInsets.only(left: 12),
-                  dividerColor: Colors.transparent,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicator: BoxDecoration(
-                      // color: const Color.fromARGB(255, 77, 110, 200),
-                      // borderRadius: BorderRadius.circular(50),
-                      ),
-                  controller: myTabController,
-                  isScrollable: true,
-                  tabAlignment: TabAlignment.center,
-                  splashFactory: NoSplash.splashFactory,
+                    ),
+                  ),
                 );
-              },
+              }),
+              labelPadding: EdgeInsets.only(left: 12.w, right: 4.w),
+              dividerColor: Colors.transparent,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: const BoxDecoration(), // Hide underline
+              controller: myTabController,
+              isScrollable: true,
+              tabAlignment: TabAlignment.start,
+              splashFactory: NoSplash.splashFactory,
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
             ),
+            SizedBox(height: 16.h),
             Expanded(
               child: TabBarView(
                 controller: myTabController,
                 children: List.generate(cities.length, (index) {
-                  // Every tab view shows the same ExpandedGrid.
-                  // The data displayed by the grid (cityAds) is controlled
-                  // by the 'setState' call inside fatchCityAds.
+                  String currentCity = cities[index];
+                  List<Ad>? dataForThisCity = catchAdshere[currentCity];
                   return ExpandedGrid(
-                    isLoading: isLoading,
-                    cityAds: cityAds,
+                    isLoading: dataForThisCity == null,
+                    cityAds: dataForThisCity ?? [],
+                    showErrorAnimation: false,
                   );
                 }),
               ),

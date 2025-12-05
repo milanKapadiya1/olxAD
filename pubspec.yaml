@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
+  google_fonts: ^6.1.0
   flutter_svg: ^2.2.0
   firebase_core: ^4.1.1
   firebase_auth: ^6.1.0
@@ -22,6 +23,7 @@ dependencies:
   gif: ^2.3.0
   bloc: ^9.1.0
   flutter_bloc: ^9.1.1
+
   # Responsive utility
   # flutter_screenutil provides .w, .h, .sp helpers. Added here under flutter key to keep simple.
   # The package will also be resolved by pub; if your project lists dependencies at top-level, move it there.

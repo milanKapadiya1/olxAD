@@ -8,6 +8,7 @@ import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
 import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
 import 'package:olxad/widgets/topbar/search_bar.dart';
+import 'package:olxad/util/app_theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late TabController tabController;
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
   bool isLoading = false;
@@ -31,8 +33,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Map<String, List<Ad>> adcatch = {};
 
   List<Ad> cityAds = [];
-  //this will hold object of ad class, inside object we have all fields like img, title, description etc every object
-  // will have this so list of object.
 
   void _handleTabSelected(int peraindex) {
     selectedIndex.value = peraindex;
@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final firestoredatabase = FirebaseFirestore.instance;
 
   Future<void> fatchcityAds(String cityName) async {
-    // ✅ Step 1: Check cache first
     if (adcatch.containsKey(cityName)) {
       setState(() {
         cityAds = adcatch[cityName]!;
@@ -53,13 +52,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       return;
     }
 
-    // ✅ Step 2: Show loader (don't clear current list)
     setState(() {
       isLoading = true;
-      // ❌ Removed cityAds.clear() — don't clear visible ads
     });
 
-    // ✅ Step 3: Fetch from Firestore
     final cityAdssnap = await firestoredatabase
         .collection('/Ads')
         .doc('ODwaKgMlJGFfyD78DP9l')
@@ -69,10 +65,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final fetchedAds =
         cityAdssnap.docs.map((docs) => Ad.fromJson(docs.data())).toList();
 
-    // ✅ Step 4: Cache it
     adcatch[cityName] = fetchedAds;
 
-    // ✅ Step 5: Update UI
     setState(() {
       cityAds = fetchedAds;
       isLoading = false;
@@ -82,6 +76,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    tabController = TabController(length: locations.length, vsync: this);
     fatchcityAds(locations[selectedIndex.value]);
   }
 
@@ -95,48 +90,57 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: AppTheme.backgroundColor,
       body: Column(
         children: [
-          SizedBox(
-            height: 12.h,
-            width: double.infinity,
-            // child: ColoredBox(color: Color.fromARGB(255, 149, 87, 87)),
-          ),
+          SizedBox(height: 12.h),
           const LogoLocation(),
-          SizedBox(
-            height: 18.h,
-          ),
-          CustomSearchBar(
-            mysearchController: _searchController,
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Container(
-            height: 1,
-            decoration:
-                BoxDecoration(color: const Color.fromARGB(255, 183, 183, 183)),
-          ),
-          SizedBox(
-            height: 24.h,
-          ),
-          HorizontalCars(cardDetails: cardDetails1),
-          SizedBox(
-            height: 12.h,
-          ),
-          HorizontalCars(cardDetails: cardDetails2),
-          SizedBox(
-            height: 24.h,
-          ),
+          SizedBox(height: 18.h),
           Padding(
-            padding: EdgeInsets.only(left: 0.w),
-            child: TabAdSection(
-                locations: locations,
-                selectedIndex: selectedIndex,
-                onTabSelected: _handleTabSelected),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomSearchBar(
+              mysearchController: _searchController,
+            ),
           ),
-          ExpandedGrid(isLoading: isLoading, cityAds: cityAds),
+          SizedBox(height: 12.h),
+          Divider(color: Colors.grey.shade200, thickness: 1),
+          SizedBox(height: 16.h),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text("Featured Cars",
+                        style: Theme.of(context).textTheme.titleLarge),
+                  ),
+                  SizedBox(height: 12.h),
+                  HorizontalCars(cardDetails: cardDetails1),
+                  SizedBox(height: 24.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text("Fresh Recommendations",
+                        style: Theme.of(context).textTheme.titleLarge),
+                  ),
+                  SizedBox(height: 12.h),
+                  HorizontalCars(cardDetails: cardDetails2),
+                  SizedBox(height: 24.h),
+                  Padding(
+                    padding: EdgeInsets.only(left: 0.w),
+                    child: TabAdSection(
+                        locations: locations,
+                        selectedIndex: selectedIndex,
+                        onTabSelected: _handleTabSelected),
+                  ),
+                  ExpandedGrid(
+                    isLoading: isLoading,
+                    cityAds: cityAds,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     ));

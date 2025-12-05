@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
 import 'package:olxad/screens/flutterTab.dart';
+import 'package:olxad/util/app_theme.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -40,12 +41,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         final data = doc.data();
 
-        currentUnserdetails = UserDetails.fromJson(data!);
-
-        emailController =
-            TextEditingController(text: currentUnserdetails?.email ?? '');
-        usernameController =
-            TextEditingController(text: currentUnserdetails?.userName ?? '');
+        if (data != null) {
+          currentUnserdetails = UserDetails.fromJson(data);
+          emailController =
+              TextEditingController(text: currentUnserdetails?.email ?? '');
+          usernameController =
+              TextEditingController(text: currentUnserdetails?.userName ?? '');
+        } else {
+          currentUnserdetails =
+              UserDetails(email: user.email, userName: '', uid: user.uid);
+          emailController = TextEditingController(text: user.email ?? '');
+          usernameController = TextEditingController(text: '');
+        }
       }
     } catch (e) {
       debugPrint("Error fetching user profile: $e");
@@ -62,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (usernameController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('enter username first'),
-        backgroundColor: Color.fromARGB(255, 172, 98, 93),
+        backgroundColor: AppTheme.errorColor,
       ));
       return;
     } else {
@@ -83,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text("Failed to add username: $e"),
-            backgroundColor: Color.fromARGB(255, 172, 98, 93),
+            backgroundColor: AppTheme.errorColor,
           ),
         );
       }
@@ -101,75 +108,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: AppTheme.backgroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             Center(
-              child: Lottie.asset('assets/animation/user.json', height: 100),
+              child: Container(
+                padding: EdgeInsets.all(20.r),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    )
+                  ],
+                ),
+                child:
+                    Lottie.asset('assets/animation/user.json', height: 100.h),
+              ),
             ),
-            SizedBox(
-              height: 12.h,
-            ),
+            SizedBox(height: 32.h),
             TextField(
               controller: emailController,
               readOnly: true,
-              decoration: InputDecoration(),
+              style: Theme.of(context).textTheme.bodyLarge,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                prefixIcon: Icon(Icons.email_outlined),
+              ),
             ),
-            SizedBox(
-              height: 12.h,
-            ),
+            SizedBox(height: 16.h),
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(
-                  labelText: 'Username',
-                  labelStyle: TextStyle(
-                      color: const Color.fromARGB(255, 112, 112, 112),
-                      fontSize: 14.sp)),
+              style: Theme.of(context).textTheme.bodyLarge,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+                prefixIcon: Icon(Icons.person_outline),
+              ),
             ),
+            SizedBox(height: 32.h),
             SizedBox(
-              height: 20.h,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: (currentUnserdetails?.userName == null ||
+                        currentUnserdetails!.userName!.isEmpty)
+                    ? _addusername
+                    : null, // disables button automatically
+                child: const Text('Update Username'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: (currentUnserdetails?.userName == null ||
-                      currentUnserdetails!.userName!.isEmpty)
-                  ? _addusername
-                  : null, // disables button automatically
-              child: Text('Add username'),
-            ),
+            SizedBox(height: 16.h),
             SizedBox(
-              height: 20.h,
+              width: double.infinity,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.errorColor,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    if (context.mounted) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: const Text('Log Out')),
             ),
-            ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                        const Color.fromARGB(255, 255, 70, 57))),
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                    (route) => false,
-                  );
+            const Spacer(),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Fluttertab()));
                 },
                 child: Text(
-                  'log out',
-                  style: TextStyle(color: Colors.white),
+                  'Browse Ads',
+                  style: TextStyle(
+                    color: AppTheme.accentColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 )),
-            Spacer(),
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Fluttertab()));
-                },
-                child: Text(
-                  'flutter tabbar api catch',
-                  style:
-                      TextStyle(color: const Color.fromARGB(255, 0, 122, 221)),
-                )),
-            SizedBox(height: 24),
+            SizedBox(height: 24.h),
           ],
         ),
       ),
