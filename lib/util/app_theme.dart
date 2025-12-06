@@ -31,47 +31,47 @@ class AppTheme {
       // Typography
       textTheme: GoogleFonts.outfitTextTheme().copyWith(
         displayLarge: GoogleFonts.outfit(
-          fontSize: 32.sp,
-          fontWeight: FontWeight.bold,
-          color: textPrimary,
-        ),
-        displayMedium: GoogleFonts.outfit(
           fontSize: 28.sp,
           fontWeight: FontWeight.bold,
           color: textPrimary,
         ),
-        displaySmall: GoogleFonts.outfit(
+        displayMedium: GoogleFonts.outfit(
           fontSize: 24.sp,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.bold,
           color: textPrimary,
         ),
-        headlineMedium: GoogleFonts.outfit(
+        displaySmall: GoogleFonts.outfit(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: textPrimary,
         ),
-        titleLarge: GoogleFonts.outfit(
+        headlineMedium: GoogleFonts.outfit(
           fontSize: 18.sp,
           fontWeight: FontWeight.w600,
           color: textPrimary,
         ),
-        titleMedium: GoogleFonts.outfit(
+        titleLarge: GoogleFonts.outfit(
           fontSize: 16.sp,
+          fontWeight: FontWeight.w600,
+          color: textPrimary,
+        ),
+        titleMedium: GoogleFonts.outfit(
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
           color: textPrimary,
         ),
         bodyLarge: GoogleFonts.outfit(
-          fontSize: 16.sp,
+          fontSize: 14.sp,
           fontWeight: FontWeight.normal,
           color: textPrimary,
         ),
         bodyMedium: GoogleFonts.outfit(
-          fontSize: 14.sp,
+          fontSize: 12.sp,
           fontWeight: FontWeight.normal,
           color: textSecondary,
         ),
         labelLarge: GoogleFonts.outfit(
-          fontSize: 14.sp,
+          fontSize: 12.sp,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
@@ -84,7 +84,7 @@ class AppTheme {
         centerTitle: true,
         iconTheme: const IconThemeData(color: textPrimary),
         titleTextStyle: GoogleFonts.outfit(
-          fontSize: 20.sp,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w600,
           color: textPrimary,
         ),
@@ -95,9 +95,9 @@ class AppTheme {
         elevation: 2,
         shadowColor: Colors.black.withOpacity(0.05),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(12.r),
         ),
-        margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+        margin: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -106,12 +106,12 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 4,
           shadowColor: primaryColor.withOpacity(0.4),
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           textStyle: GoogleFonts.outfit(
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -120,22 +120,22 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: surfaceColor,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.grey.shade200),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: const BorderSide(color: accentColor, width: 1.5),
         ),
         hintStyle: GoogleFonts.outfit(
           color: Colors.grey.shade400,
-          fontSize: 14.sp,
+          fontSize: 12.sp,
         ),
       ),
 
@@ -145,11 +145,11 @@ class AppTheme {
         indicatorSize: TabBarIndicatorSize.label,
         labelStyle: GoogleFonts.outfit(
           fontWeight: FontWeight.w600,
-          fontSize: 14.sp,
+          fontSize: 12.sp,
         ),
         unselectedLabelStyle: GoogleFonts.outfit(
           fontWeight: FontWeight.normal,
-          fontSize: 14.sp,
+          fontSize: 12.sp,
         ),
       ),
     );

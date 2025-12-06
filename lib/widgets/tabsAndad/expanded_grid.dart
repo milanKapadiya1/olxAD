@@ -41,9 +41,9 @@ class _ExpandedGridState extends State<ExpandedGrid> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 12.h,
-                  crossAxisSpacing: 12.w,
-                  childAspectRatio: 0.60.h, //  Adjust height/width ratio
+                  mainAxisSpacing: 4.h,
+                  crossAxisSpacing: 4.w,
+                  childAspectRatio: 0.65.h, //  Adjust height/width ratio
                 ),
                 itemCount: widget.cityAds.length,
                 itemBuilder: (context, index) {

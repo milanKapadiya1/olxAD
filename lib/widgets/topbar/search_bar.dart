@@ -17,10 +17,10 @@ class CustomSearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              height: 48.h,
+              height: 44.h,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(10.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
@@ -36,30 +36,31 @@ class CustomSearchBar extends StatelessWidget {
                   hintText: 'Search "Jobs"',
                   hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.grey.shade400,
+                        fontSize: 12.sp,
                       ),
                   prefixIcon: Padding(
-                    padding: EdgeInsets.all(12.w),
+                    padding: EdgeInsets.all(10.w),
                     child: Icon(
                       Icons.search,
-                      size: 20.w,
+                      size: 18.w,
                       color: AppTheme.textSecondary,
                     ),
                   ),
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 12.h),
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                 ),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
-          SizedBox(width: 16.w),
+          SizedBox(width: 12.w),
           Container(
-            padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(10.r),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.05),
@@ -70,18 +71,18 @@ class CustomSearchBar extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               'assets/icons/Heart.svg',
-              height: 24.h,
-              width: 24.w,
+              height: 20.h,
+              width: 20.w,
               colorFilter:
                   const ColorFilter.mode(AppTheme.textPrimary, BlendMode.srcIn),
             ),
           ),
-          SizedBox(width: 12.w),
+          SizedBox(width: 10.w),
           Container(
-            padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(10.r),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.05),
@@ -92,7 +93,7 @@ class CustomSearchBar extends StatelessWidget {
             ),
             child: Icon(
               Icons.notifications_none_outlined,
-              size: 24.w,
+              size: 20.w,
               color: AppTheme.textPrimary,
             ),
           )

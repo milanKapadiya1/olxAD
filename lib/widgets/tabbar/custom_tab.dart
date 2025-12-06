@@ -28,14 +28,14 @@ class CustomTab extends StatelessWidget {
 
     return InkWell(
       onTap: () => onTabSelected(myIndex),
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(8.r),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        margin: EdgeInsets.only(right: 10.w),
+        margin: EdgeInsets.only(right: 8.w),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(8.r),
           border: Border.all(
             width: 1.5,
             color: borderColor,
@@ -44,19 +44,19 @@ class CustomTab extends StatelessWidget {
               ? [
                   BoxShadow(
                     color: AppTheme.primaryColor.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
                   ),
                 ]
               : [],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
         child: Text(
           myText,
           style: TextStyle(
             color: textColor,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-            fontSize: 14.sp,
+            fontSize: 12.sp,
           ),
         ),
       ),

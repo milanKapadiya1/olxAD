@@ -94,15 +94,15 @@ class _CreateadState extends State<Createad> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(16.r),
+                  padding: EdgeInsets.all(12.r),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.r),
+                    borderRadius: BorderRadius.circular(12.r),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
@@ -114,16 +114,16 @@ class _CreateadState extends State<Createad> {
                   child: Row(
                     children: [
                       Container(
-                        height: 50.h,
-                        width: 50.h,
+                        height: 40.h,
+                        width: 40.h,
                         decoration: BoxDecoration(
                           color: AppTheme.primaryColor.withOpacity(0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(Icons.person,
-                            color: AppTheme.primaryColor, size: 28.sp),
+                            color: AppTheme.primaryColor, size: 24.sp),
                       ),
-                      SizedBox(width: 16.w),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +144,7 @@ class _CreateadState extends State<Createad> {
                     ],
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 20.h),
                 TextField(
                   controller: imageUrlController,
                   decoration: const InputDecoration(
@@ -153,7 +153,7 @@ class _CreateadState extends State<Createad> {
                     hintText: 'https://example.com/image.jpg',
                   ),
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: titleController,
                   decoration: const InputDecoration(
@@ -162,7 +162,7 @@ class _CreateadState extends State<Createad> {
                     hintText: 'e.g. iPhone 14 Pro Max',
                   ),
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: descController,
                   maxLines: 3,
@@ -173,7 +173,7 @@ class _CreateadState extends State<Createad> {
                     alignLabelWithHint: true,
                   ),
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: priceController,
                   keyboardType: TextInputType.number,
@@ -183,7 +183,7 @@ class _CreateadState extends State<Createad> {
                     hintText: '0.00',
                   ),
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: locationController,
                   decoration: const InputDecoration(
@@ -192,7 +192,7 @@ class _CreateadState extends State<Createad> {
                     hintText: 'e.g. Ahmedabad',
                   ),
                 ),
-                SizedBox(height: 32.h),
+                SizedBox(height: 24.h),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

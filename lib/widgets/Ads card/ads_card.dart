@@ -39,6 +39,21 @@ class AdCard extends StatelessWidget {
                             ),
                           );
                         },
+                        errorBuilder: (context, error, StackTrace){
+                           return Container(
+                            height: 120.h,
+                            width: double.infinity,
+                            color: Colors.grey.shade200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.broken_image_outlined, color: Colors.grey,size: 20.sp,),
+                                SizedBox(height: 4.h,),
+                                Text('Image Error 404', style: TextStyle(color: Colors.grey, fontSize: 10.sp),)
+                              ],
+                            )
+                           );
+                        },
                       )
                     : Container(
                         height: 120.h,

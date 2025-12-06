@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
 import 'package:olxad/screens/flutterTab.dart';
@@ -97,6 +98,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+
+// ... (Keep your Ad class and getDummyAds function here) ...
+
+Future<void> uploadAdsToCityCollections() async {
+  // 1. Get the 30 dummy ads
+  List<Ad> adsToUpload = getDummyAds();
+
+  // ⚠️ CRITICAL STEP ⚠️
+  // Paste the ID of the document inside 'Ads' collection here.
+  // Example: 'Kj87sdfKJsdf876'
+  String parentDocumentId = 'ODwaKgMlJGFfyD78DP9l'; 
+
+ 
+
+  WriteBatch batch = FirebaseFirestore.instance.batch();
+
+  print("Starting upload...");
+
+  for (Ad ad in adsToUpload) {
+    // 2. Construct the path
+    // Path: Ads -> [ParentDocID] -> [CityName] -> [NewAdID]
+    
+    // Step A: Point to 'Ads' collection
+    CollectionReference adsCollection = FirebaseFirestore.instance.collection('Ads');
+    
+    // Step B: Point to the specific parent document
+    DocumentReference parentDocRef = adsCollection.doc(parentDocumentId);
+
+    // Step C: Point to the City collection (Ahmedabad, Mumbai, or Delhi)
+    CollectionReference cityCollection = parentDocRef.collection(ad.location);
+
+    // Step D: Create a new empty document for the Ad
+    DocumentReference newAdDoc = cityCollection.doc();
+
+    // 3. Add to batch
+    batch.set(newAdDoc, ad.toJson());
+  }
+
+  // 4. Commit the batch
+  try {
+    await batch.commit();
+    print("✅ SUCCESS: 30 Ads uploaded successfully!");
+    print("Structure: Ads -> $parentDocumentId -> CityCollections -> AdDocs");
+  } catch (e) {
+    print("❌ ERROR: $e");
+  }
+}
   @override
   void dispose() {
     emailController.dispose();
@@ -117,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Spacer(),
             Center(
               child: Container(
-                padding: EdgeInsets.all(20.r),
+                padding: EdgeInsets.all(16.r),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
@@ -129,8 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )
                   ],
                 ),
-                child:
-                    Lottie.asset('assets/animation/user.json', height: 100.h),
+                child: Lottie.asset('assets/animation/user.json', height: 80.h),
               ),
             ),
             SizedBox(height: 32.h),
@@ -193,6 +240,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: Text(
                   'Browse Ads',
+                  style: TextStyle(
+                    color: AppTheme.accentColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )),
+            // SizedBox(height: 4.h),
+             TextButton(
+                onPressed: () async {
+                 await uploadAdsToCityCollections();
+                 ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
+        );
+                },
+                child: Text(
+                  'Upload Ads(from list)',
                   style: TextStyle(
                     color: AppTheme.accentColor,
                     fontSize: 16.sp,
