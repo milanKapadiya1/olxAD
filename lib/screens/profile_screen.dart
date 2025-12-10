@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
 
-// ... (Keep your Ad class and getDummyAds function here) ...
+// two function to add more ads in firestore created with gemini.
 
 Future<void> uploadAdsToCityCollections() async {
   // 1. Get the 30 dummy ads
@@ -145,6 +145,45 @@ Future<void> uploadAdsToCityCollections() async {
     print("❌ ERROR: $e");
   }
 }
+
+
+// ... (Ensure your Ad class and getAhmedabadAds function are in this file) ...
+
+Future<void> uploadAhmedabadOnly() async {
+  // 1. Get the 20 new Ahmedabad ads
+  List<Ad> adsToUpload = getAhmedabadAds();
+
+  String parentDocumentId = 'ODwaKgMlJGFfyD78DP9l'; 
+
+  
+
+  WriteBatch batch = FirebaseFirestore.instance.batch();
+
+  print("Starting upload of 20 Ahmedabad Ads...");
+
+  for (Ad ad in adsToUpload) {
+    // 2. Target the Ahmedabad collection explicitly
+    // Path: Ads -> [ParentDocID] -> Ahmedabad -> [NewAdID]
+    
+    DocumentReference newAdDoc = FirebaseFirestore.instance
+        .collection('Ads')
+        .doc(parentDocumentId)
+        .collection('Ahmedabad') // Explicitly targeting Ahmedabad
+        .doc(); 
+
+    // 3. Add to batch (Uses your fixed Ad model with correct keys: Image, Title, description)
+    batch.set(newAdDoc, ad.toJson());
+  }
+
+  // 4. Commit
+  try {
+    await batch.commit();
+    print("✅ SUCCESS: 20 New Ads added to Ahmedabad collection!");
+  } catch (e) {
+    print("❌ ERROR: $e");
+  }
+}
+// function to upload ads ends //
   @override
   void dispose() {
     emailController.dispose();
@@ -262,7 +301,21 @@ Future<void> uploadAdsToCityCollections() async {
                     fontWeight: FontWeight.w600,
                   ),
                 )),
-            SizedBox(height: 24.h),
+            TextButton(
+                onPressed: () async {
+                 await uploadAhmedabadOnly();
+                 ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
+        );
+                },
+                child: Text(
+                  'Upload Ahmedabad ads',
+                  style: TextStyle(
+                    color: AppTheme.accentColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )),
           ],
         ),
       ),

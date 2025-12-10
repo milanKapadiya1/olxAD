@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController tabController;
   final TextEditingController _searchController = TextEditingController();
-  late ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
+  final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
   bool isLoading = false;
   final List<String> locations = [
     'Ahmedabad',
@@ -30,13 +30,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     'Gandhinagar',
   ];
 
- static final Map<String, List<Ad>> adcatch = {};
- static int lastSelectedIndex = 0;
+//  static final Map<String, List<Ad>> adcatch = {};
+  final Map<String, List<Ad>> adcatch = {};
+
+//  static int lastSelectedIndex = 0;
   List<Ad> cityAds = [];
 
   void _handleTabSelected(int peraindex) {
     selectedIndex.value = peraindex;
-    lastSelectedIndex = peraindex;
     String cityName = locations[peraindex];
 
     fatchcityAds(cityName);
@@ -78,10 +79,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    selectedIndex = ValueNotifier<int>(lastSelectedIndex);
+    // selectedIndex = ValueNotifier<int>(lastSelectedIndex);
 
-    tabController = TabController(length: locations.length, vsync: this, initialIndex: lastSelectedIndex);
-    fatchcityAds(locations[lastSelectedIndex]);
+    tabController = TabController(length: locations.length, vsync: this,);
+    fatchcityAds(locations[0]);
   }
 
   @override

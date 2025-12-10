@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppTheme.backgroundColor,
-        body: _pages[_selectedIndex],
+        body: IndexedStack(index: _selectedIndex, children: _pages, ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             boxShadow: [

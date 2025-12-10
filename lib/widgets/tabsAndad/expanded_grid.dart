@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:olxad/model/ad_model.dart';
+import 'package:olxad/screens/ontapscreen.dart';
 import 'package:olxad/widgets/Ads%20card/ads_card.dart';
 
 class ExpandedGrid extends StatefulWidget {
@@ -48,7 +49,15 @@ class _ExpandedGridState extends State<ExpandedGrid> {
                 itemCount: widget.cityAds.length,
                 itemBuilder: (context, index) {
                   final ad = widget.cityAds[index];
-                  return AdCard(ad: ad);
+                  return AdCard(
+                      ad: ad,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Ontapscreen(adsDetails: ad)));
+                      });
                 },
               );
   }
