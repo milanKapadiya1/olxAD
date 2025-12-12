@@ -23,6 +23,7 @@ dependencies:
   gif: ^2.3.0
   bloc: ^9.1.0
   flutter_bloc: ^9.1.1
+  cached_network_image: ^3.4.1
 
   # Responsive utility
   # flutter_screenutil provides .w, .h, .sp helpers. Added here under flutter key to keep simple.

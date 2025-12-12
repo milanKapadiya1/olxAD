@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/onboarding/auth/registration.dart';
 import 'package:olxad/screens/home_page.dart';
+import 'package:olxad/screens/home_screen.dart';
 import 'package:olxad/util/snack_bar.dart';
 
 class Login extends StatefulWidget {
@@ -59,7 +60,7 @@ class _LoginState extends State<Login> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const HomeScreen(),
           ),
           (route) => false,
         );

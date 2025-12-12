@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
 import 'package:olxad/screens/home_page.dart';
+import 'package:olxad/screens/home_screen.dart';
 import 'package:olxad/util/snack_bar.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -76,7 +77,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           email: userCradentionl.user!.email ?? emailController.text.trim(),
         ));
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomePage()),
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
           (route) => false,
         );
         AppConstans.showSnackBar(

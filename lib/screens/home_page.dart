@@ -92,6 +92,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   @override
+   void didChangeDependencies(){
+    super.didChangeDependencies();
+    for (var element in cardDetails1){
+      precacheImage(AssetImage('assets/images/${element.image}'), context);
+    }
+     for (var element in cardDetails2){
+      precacheImage(AssetImage('assets/images/${element.image}'), context);
+    }
+   }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(

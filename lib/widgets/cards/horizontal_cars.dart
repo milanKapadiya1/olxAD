@@ -15,7 +15,7 @@ class HorizontalCars extends StatelessWidget {
         children: List.generate(cardDetails.length, (index) {
           final card = cardDetails[index];
           return CardsCustom(
-            image: Image.asset('assets/images/${card.image}'),
+            image: Image.asset('assets/images/${card.image}', gaplessPlayback: true,),
             text: card.text,
           );
         }),

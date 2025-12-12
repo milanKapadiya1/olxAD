@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
@@ -25,38 +26,64 @@ class AdCard extends StatelessWidget {
               ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                   child: ad.image.isNotEmpty
-                      ? Image.network(
-                          ad.image,
+                      ? CachedNetworkImage(
+                        
+                          imageUrl: ad.image,
                           height: 120.h,
                           width: double.infinity,
                           fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: CircularProgressIndicator(
-                                    color: AppTheme.primaryColor),
+                          memCacheHeight: 500,
+
+                          placeholder: (context, url) => Center(
+                            child: SizedBox(
+                              height: 20.h,
+                              width: 20.w,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: AppTheme.primaryColor,
                               ),
-                            );
-                          },
-                          errorBuilder: (context, error, StackTrace){
-                             return Container(
-                              height: 120.h,
-                              width: double.infinity,
-                              color: Colors.grey.shade200,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.broken_image_outlined, color: Colors.grey,size: 20.sp,),
-                                  SizedBox(height: 4.h,),
-                                  Text('Image Error 404', style: TextStyle(color: Colors.grey, fontSize: 10.sp),)
-                                ],
-                              )
-                             );
-                          },
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            height: 120.h,
+                            width: double.infinity,
+                            color: const Color.fromARGB(255, 187, 187, 187),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.broken_image_rounded),
+                                SizedBox(height: 4.h,),
+                                Text('Image Error', style: TextStyle(fontSize: 15.sp),)
+                              ],
+                            ),
+                          ),
+                          // loadingBuilder: (context, child, loadingProgress) {
+                          //   if (loadingProgress == null) {
+                          //     return child;
+                          //   }
+                          //   return Center(
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.all(16.0),
+                          //       child: CircularProgressIndicator(
+                          //           color: AppTheme.primaryColor),
+                          //     ),
+                          //   );
+                          // },
+                          // errorBuilder: (context, error, StackTrace){
+                          //    return Container(
+                          //     height: 120.h,
+                          //     width: double.infinity,
+                          //     color: Colors.grey.shade200,
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         Icon(Icons.broken_image_outlined, color: Colors.grey,size: 20.sp,),
+                          //         SizedBox(height: 4.h,),
+                          //         Text('Image Error 404', style: TextStyle(color: Colors.grey, fontSize: 10.sp),)
+                          //       ],
+                          //     )
+                          //    );
+                          // },
                         )
                       : Container(
                           height: 120.h,

@@ -93,7 +93,7 @@ class Ontapscreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Text(
                     adsDetails.title,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF002F34),
                         ),
@@ -101,7 +101,7 @@ class Ontapscreen extends StatelessWidget {
                   SizedBox(height: 8.h),
                   Text(
                     '₹ ${adsDetails.price}',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w800,
                           color: const Color(0xFF002F34),
                         ),
