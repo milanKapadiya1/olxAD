@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     'Gandhinagar',
   ];
 
-//  static final Map<String, List<Ad>> adcatch = {};
-  final Map<String, List<Ad>> adcatch = {};
+ static final Map<String, List<Ad>> adcatch = {};
+  // final Map<String, List<Ad>> adcatch = {};
 
 //  static int lastSelectedIndex = 0;
   List<Ad> cityAds = [];
@@ -101,31 +101,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       precacheImage(AssetImage('assets/images/${element.image}'), context);
     }
    }
-
-  @override
+@override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
-      body: Column(
-        children: [
-          SizedBox(height: 12.h),
-          const LogoLocation(),
-          SizedBox(height: 18.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomSearchBar(
-              mysearchController: _searchController,
-            ),
-          ),
-          SizedBox(height: 12.h),
-          Divider(color: Colors.grey.shade200, thickness: 1),
-          SizedBox(height: 16.h),
-          Expanded(
-            child: SingleChildScrollView(
+      child: Scaffold(
+        backgroundColor: AppTheme.backgroundColor,
+        body: CustomScrollView(
+          slivers: [
+            //  SCROLLABLE TOP CONTENT YO THE FETURE HORIZONTAL
+            SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 12.h),
+                  const LogoLocation(),
+                  SizedBox(height: 18.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: CustomSearchBar(
+                      mysearchController: _searchController,
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  Divider(color: Colors.grey.shade200, thickness: 1),
+                  SizedBox(height: 16.h),
+                  
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Text("Featured Cars",
@@ -134,6 +134,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   SizedBox(height: 12.h),
                   HorizontalCars(cardDetails: cardDetails1),
                   SizedBox(height: 24.h),
+                  
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Text("Fresh Recommendations",
@@ -142,23 +143,69 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   SizedBox(height: 12.h),
                   HorizontalCars(cardDetails: cardDetails2),
                   SizedBox(height: 24.h),
-                  Padding(
-                    padding: EdgeInsets.only(left: 0.w),
-                    child: TabAdSection(
-                        locations: locations,
-                        selectedIndex: selectedIndex,
-                        onTabSelected: _handleTabSelected),
-                  ),
-                  ExpandedGrid(
-                    isLoading: isLoading,
-                    cityAds: cityAds,
-                  ),
                 ],
               ),
             ),
-          ),
-        ],
+
+            //  STICKY TAB BAR (Pins to top when scrolled)
+            SliverPersistentHeader(
+              pinned: true, 
+              delegate: _StickyTabBarDelegate(
+                height:65.h, 
+                child: Padding(
+                  padding: EdgeInsets.only(left: 0.w, top: 12.h),
+                  child: TabAdSection(
+                    locations: locations,
+                    selectedIndex: selectedIndex,
+                    onTabSelected: _handleTabSelected,
+                  ),
+                ),
+              ),
+            ),
+
+            // THE ADS GRID (Scrolls underneath the sticky tab)
+            SliverToBoxAdapter(
+              child: isLoading 
+              ? SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+                :
+              ExpandedGrid(
+                isLoading: isLoading,
+                cityAds: cityAds,
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
+  }}
+
+  class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double height;
+
+  _StickyTabBarDelegate({required this.child, required this.height});
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: AppTheme.backgroundColor, 
+      child: child,
+    );
+  }
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  double get minExtent => height;
+
+  @override
+  bool shouldRebuild(_StickyTabBarDelegate oldDelegate) {
+    return oldDelegate.child != child;
   }
 }

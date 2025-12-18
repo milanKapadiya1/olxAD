@@ -17,33 +17,40 @@ class AdCard extends StatelessWidget {
       child: Card(
         color: Colors.white,
         elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         shadowColor: Colors.black.withOpacity(0.1),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16.r)),
                   child: ad.image.isNotEmpty
                       ? CachedNetworkImage(
-                        
                           imageUrl: ad.image,
                           height: 120.h,
                           width: double.infinity,
                           fit: BoxFit.cover,
                           memCacheHeight: 500,
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,
 
-                          placeholder: (context, url) => Center(
-                            child: SizedBox(
-                              height: 20.h,
-                              width: 20.w,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: AppTheme.primaryColor,
-                              ),
-                            ),
+                          placeholder: (context, url) => 
+                          Container(
+                            color: Colors.grey,
                           ),
+                          // Center(
+                          //   child: SizedBox(
+                          //     height: 20.h,
+                          //     width: 20.w,
+                          //     child: CircularProgressIndicator(
+                          //       strokeWidth: 2,
+                          //       color: AppTheme.primaryColor,
+                          //     ),
+                          //   ),
+                          // ),
                           errorWidget: (context, url, error) => Container(
                             height: 120.h,
                             width: double.infinity,
@@ -52,8 +59,13 @@ class AdCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.broken_image_rounded),
-                                SizedBox(height: 4.h,),
-                                Text('Image Error', style: TextStyle(fontSize: 15.sp),)
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  'Image Error',
+                                  style: TextStyle(fontSize: 15.sp),
+                                )
                               ],
                             ),
                           ),
@@ -89,8 +101,8 @@ class AdCard extends StatelessWidget {
                           height: 120.h,
                           width: double.infinity,
                           color: Colors.grey.shade200,
-                          child:
-                              Icon(Icons.image_not_supported, color: Colors.grey),
+                          child: Icon(Icons.image_not_supported,
+                              color: Colors.grey),
                         )),
               Padding(
                 padding: EdgeInsets.all(12.w),
@@ -121,9 +133,10 @@ class AdCard extends StatelessWidget {
                       children: [
                         Text(
                           'Price : ',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                         ),
                         Text(ad.price.toString(),
                             style: Theme.of(context)

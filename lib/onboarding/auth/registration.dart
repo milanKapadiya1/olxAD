@@ -40,7 +40,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       return 'Password is required';
     }
     final passwordRegex =
-        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$');
+       RegExp(
+  r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',);
     if (!passwordRegex.hasMatch(value)) {
       return 'Password must have uppercase,lowercase,number, and 6+ chars';
     }
