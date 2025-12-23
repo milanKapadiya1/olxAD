@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:olxad/manager/favorite_manager.dart';
 import 'package:olxad/model/ad_model.dart';
 
 class Ontapscreen extends StatelessWidget {
@@ -33,13 +34,22 @@ class Ontapscreen extends StatelessWidget {
                 color: Colors.white,
                 size: 24,
               )),
-          IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                'assets/icons/Heart.svg',
-                height: 24,
-                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-              ))
+          ValueListenableBuilder<List<Ad>>(
+            valueListenable: FavoriteManager().favorites,
+            builder: (context, value, child) {
+              final isLikded = FavoriteManager().isLiked(adsDetails);
+              return  IconButton(
+                onPressed: () {
+                  FavoriteManager().toggleFavorite(adsDetails);
+                                  },
+                icon: SvgPicture.asset(
+                  'assets/icons/Heart.svg',
+                  height: 24,
+                  colorFilter: ColorFilter.mode(isLikded? const Color.fromARGB(255, 234, 67, 67) : Colors.white, BlendMode.srcIn),
+                ));
+            },
+           
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -145,6 +155,61 @@ class Ontapscreen extends StatelessWidget {
           ],
         ),
       ),
-    ));
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        padding: EdgeInsets.fromLTRB(16.w, 10.h, 16.w, 16.h),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: Icon(Icons.chat, color: Colors.white, size: 20.sp),
+                label: Text(
+                  'Chat',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF0A62A3),
+                  padding: EdgeInsets.symmetric(vertical: 14.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  elevation: 0,
+                ),
+              ),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: Icon(Icons.call, color: Colors.white, size: 20.sp),
+                label: Text(
+                  'Call',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF005EB8),
+                  padding: EdgeInsets.symmetric(vertical: 14.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  elevation: 0,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    )
+    
+    );
   }
 }

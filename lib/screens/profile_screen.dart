@@ -286,36 +286,36 @@ Future<void> uploadAhmedabadOnly() async {
                   ),
                 )),
             // SizedBox(height: 4.h),
-             TextButton(
-                onPressed: () async {
-                 await uploadAdsToCityCollections();
-                 ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
-        );
-                },
-                child: Text(
-                  'Upload Ads(from list)',
-                  style: TextStyle(
-                    color: AppTheme.accentColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )),
-            TextButton(
-                onPressed: () async {
-                 await uploadAhmedabadOnly();
-                 ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
-        );
-                },
-                child: Text(
-                  'Upload Ahmedabad ads',
-                  style: TextStyle(
-                    color: AppTheme.accentColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )),
+        //      TextButton(
+        //         onPressed: () async {
+        //          await uploadAdsToCityCollections();
+        //          ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
+        // );
+        //         },
+        //         child: Text(
+        //           'Upload Ads(from list)',
+        //           style: TextStyle(
+        //             color: AppTheme.accentColor,
+        //             fontSize: 16.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //         )),
+        //     TextButton(
+        //         onPressed: () async {
+        //          await uploadAhmedabadOnly();
+        //          ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Upload Complete! Check Firebase Console.')),
+        // );
+        //         },
+        //         child: Text(
+        //           'Upload Ahmedabad ads',
+        //           style: TextStyle(
+        //             color: AppTheme.accentColor,
+        //             fontSize: 16.sp,
+        //             fontWeight: FontWeight.w600,
+        //           ),
+        //         )),
           ],
         ),
       ),

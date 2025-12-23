@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:olxad/screens/splash_screen.dart';
+import 'package:olxad/onboarding/auth/splash_screen.dart';
 import 'package:olxad/firebase_options.dart';
 import 'package:olxad/util/app_theme.dart';
 

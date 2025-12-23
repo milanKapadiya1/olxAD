@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:olxad/screens/createad.dart';
+import 'package:olxad/screens/details/liked_ads.dart';
 import 'package:olxad/screens/home_page.dart';
-import 'package:olxad/screens/like_screen.dart';
 import 'package:olxad/screens/profile_screen.dart';
 import 'package:olxad/screens/purchase_screen.dart';
 import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
