@@ -11,7 +11,7 @@ class AppConstans {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: isSuccess
-            ? const Color.fromARGB(255, 67, 75, 233)
+            ? const Color.fromARGB(255, 63, 132, 175)
             : const Color.fromARGB(255, 233, 63, 51),
         content: Text(
           message,

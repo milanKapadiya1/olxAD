@@ -8,6 +8,13 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Fast-path: if a user is already available synchronously, show Home immediately.
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return const HomeScreen();
+    }
+
+    // Otherwise listen for auth state changes (covers async restore and sign-in/out).
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {

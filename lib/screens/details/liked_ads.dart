@@ -35,7 +35,7 @@ class LikeScreen extends StatelessWidget {
           ),
         );
           }
-
+        
           return ListView.builder(
             itemCount: favList.length,
             padding: const EdgeInsets.only(top: 10),

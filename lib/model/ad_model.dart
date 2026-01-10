@@ -30,6 +30,16 @@ class Ad {
         'price': price,
         'location': location,
       };
+      Map<String, dynamic> toJsonLiked() {
+    return {
+      'title': title,
+      'price': price,
+      'location': location,
+      'image': image, // or 'image': image if it's a string
+      'desc': desc,
+      // Add all other fields here
+    };
+      }
 }
 
 // 2. Helper function to generate the 30 Ads
