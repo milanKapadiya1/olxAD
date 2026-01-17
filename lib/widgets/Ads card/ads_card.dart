@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
-import 'package:olxad/util/app_theme.dart';
 
 class AdCard extends StatelessWidget {
   final Ad ad;
@@ -14,161 +13,131 @@ class AdCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        color: Colors.white,
-        elevation: 2,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-        shadowColor: Colors.black.withOpacity(0.1),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(16.r)),
-                  child: ad.image.isNotEmpty
-                      ? CachedNetworkImage(
-                          imageUrl: ad.image,
-                          height: 120.h,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          memCacheHeight: 500,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,
-
-                          placeholder: (context, url) => 
-                          Container(
-                            color: Colors.grey,
-                          ),
-                          // Center(
-                          //   child: SizedBox(
-                          //     height: 20.h,
-                          //     width: 20.w,
-                          //     child: CircularProgressIndicator(
-                          //       strokeWidth: 2,
-                          //       color: AppTheme.primaryColor,
-                          //     ),
-                          //   ),
-                          // ),
-                          errorWidget: (context, url, error) => Container(
-                            height: 120.h,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4.r), // Standard border radius
+          border: Border.all(
+              color: Colors.grey.shade300, width: 1), // Subtle border
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(4.r)),
+                    child: ad.image.isNotEmpty
+                        ? CachedNetworkImage(
+                            imageUrl: ad.image,
+                            height: 140.h, // Increased height for better ratio
                             width: double.infinity,
-                            color: const Color.fromARGB(255, 187, 187, 187),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.broken_image_rounded),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  'Image Error',
-                                  style: TextStyle(fontSize: 15.sp),
-                                )
-                              ],
+                            fit: BoxFit.cover,
+                            memCacheHeight: 500,
+                            fadeInDuration: Duration.zero,
+                            fadeOutDuration: Duration.zero,
+
+                            placeholder: (context, url) => Container(
+                              color: Colors.grey.shade200,
                             ),
-                          ),
-                          // loadingBuilder: (context, child, loadingProgress) {
-                          //   if (loadingProgress == null) {
-                          //     return child;
-                          //   }
-                          //   return Center(
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.all(16.0),
-                          //       child: CircularProgressIndicator(
-                          //           color: AppTheme.primaryColor),
-                          //     ),
-                          //   );
-                          // },
-                          // errorBuilder: (context, error, StackTrace){
-                          //    return Container(
-                          //     height: 120.h,
-                          //     width: double.infinity,
-                          //     color: Colors.grey.shade200,
-                          //     child: Column(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       children: [
-                          //         Icon(Icons.broken_image_outlined, color: Colors.grey,size: 20.sp,),
-                          //         SizedBox(height: 4.h,),
-                          //         Text('Image Error 404', style: TextStyle(color: Colors.grey, fontSize: 10.sp),)
-                          //       ],
-                          //     )
-                          //    );
-                          // },
-                        )
-                      : Container(
-                          height: 120.h,
-                          width: double.infinity,
-                          color: Colors.grey.shade200,
-                          child: Icon(Icons.image_not_supported,
-                              color: Colors.grey),
-                        )),
-              Padding(
-                padding: EdgeInsets.all(12.w),
+                            errorWidget: (context, url, error) => Container(
+                              height: 140.h,
+                              width: double.infinity,
+                              color: Colors.grey.shade200,
+                              child: Icon(Icons.broken_image_rounded,
+                                  color: Colors.grey),
+                            ),
+                          )
+                        : Container(
+                            height: 140.h,
+                            width: double.infinity,
+                            color: Colors.grey.shade200,
+                            child: Icon(Icons.image_not_supported,
+                                color: Colors.grey),
+                          )),
+                Positioned(
+                  top: 8.h,
+                  right: 8.w,
+                  child: Container(
+                    padding: EdgeInsets.all(6.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.favorite_border,
+                      size: 16.sp,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(8.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      ad.title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      ad.desc,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppTheme.textSecondary,
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Price : ',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          "₹ ${ad.price}", // Price first
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp),
                         ),
-                        Text(ad.price.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                    color: AppTheme.primaryColor,
-                                    fontWeight: FontWeight.bold)),
+                        SizedBox(height: 4.h),
+                        Text(
+                          ad.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color: Colors.black87, fontSize: 14.sp),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.location_on_outlined,
-                            color: AppTheme.textSecondary, size: 16.sp),
-                        SizedBox(width: 4.w),
                         Expanded(
-                          child: Text(ad.location,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppTheme.textSecondary)),
+                          child: Text(
+                            ad.location,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 10.sp),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          "", // Placeholder for date if not in model
+                          // style: Theme.of(context)
+                          //     .textTheme
+                          //     .bodySmall
+                          //     ?.copyWith(
+                          //         color: Colors.grey.shade600, fontSize: 10.sp),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

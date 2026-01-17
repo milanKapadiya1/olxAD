@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,29 +8,36 @@ import 'package:geolocator/geolocator.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
+import 'package:olxad/widgets/recentlyview.dart';
 import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
 import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
 import 'package:olxad/widgets/topbar/search_bar.dart';
 import 'package:olxad/util/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+  static ValueNotifier<List<Ad>> recentlyViewedNotifire = ValueNotifier([]);
+
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String currentCity = '';
   final TextEditingController _searchController = TextEditingController();
   bool isLoading = false;
+  bool isDialogShowing = false;
 
   static final Map<String, List<Ad>> adcatch = {};
 
   List<Ad> cityAds = [];
 
   final firestoredatabase = FirebaseFirestore.instance;
+
+  //////////////////////////////// variables ends
 
   Future<void> fatchcityAds(String cityName) async {
     if (adcatch.containsKey(cityName)) {
@@ -79,7 +88,15 @@ class _HomePageState extends State<HomePage> {
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location denied permanatly, Allow location');
     }
-    return await Geolocator.getCurrentPosition();
+
+    Position? lastPosition = await Geolocator.getLastKnownPosition();
+    if (lastPosition != null) {
+      return lastPosition;
+    }
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.low,
+      timeLimit: const Duration(seconds: 10),
+    );
   }
 
   Future<String> getCityName(Position position) async {
@@ -89,24 +106,35 @@ class _HomePageState extends State<HomePage> {
     Placemark place = placemarks[0];
 
     final cityLocation = place.locality;
+    final street = place.street;
+    final subLocality = place.subLocality;
+    debugPrint("Your street location is :$street ");
+    debugPrint('Your street location is : $subLocality');
 
     return cityLocation ?? '';
   }
 
   Future<void> _initLocationFlow() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       debugPrint("🚀🚀starting location flow");
       bool serviceEnable = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnable) {
         if (context.mounted) _showEnableLocationDialog();
+        // setState(() {
+        //   isLoading = false;
+        // });
         return;
       }
       Position? position = await determinPosition();
-      debugPrint("📍 Coordinates: ${position!.latitude}, ${position.longitude}");
+      debugPrint(
+          "📍 Coordinates: ${position!.latitude}, ${position.longitude}");
 
       String city = await getCityName(position);
       debugPrint("🏙️ Detected City Name: '$city'");
-      if (city.isEmpty || city == 'Unknown'){
+      if (city.isEmpty || city == 'Unknown') {
         debugPrint("city is probebly empty or unknon");
       }
       if (mounted) {
@@ -117,11 +145,15 @@ class _HomePageState extends State<HomePage> {
       }
     } catch (e) {
       debugPrint("Location Error $e");
-      // fatchcityAds("Ahmedabad");
+      await fatchcityAds("Mumbai"); // if loading fails show mumbai's ad
     }
   }
 
+
   void _showEnableLocationDialog() {
+    setState(() {
+      isDialogShowing = true;
+    });
     showDialog(
       context: context,
       barrierDismissible: false, // User must choose an option
@@ -134,9 +166,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               // Open phone settings
               Geolocator.openLocationSettings();
-              Navigator.pop(context);
-              // Retry after a small delay to give them time to switch it on
-              Future.delayed(const Duration(seconds: 1), _initLocationFlow);
+              // Navigator.pop(context);
+              // // Retry after a small delay to give them time to switch it on
+              // Future.delayed(const Duration(seconds: 1), _initLocationFlow);
             },
             child: const Text("Open Settings"),
           ),
@@ -145,15 +177,62 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // User is back in the app! Check location again.
+      _checkLocationOnResume();
+    }
+  }
+
+  Future<void> _checkLocationOnResume() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (serviceEnabled && isDialogShowing) {
+      Navigator.of(context).pop();
+      setState(() {
+        isDialogShowing = false;
+      });
+      _initLocationFlow();
+    }
+  }
+
+    ///////////////////// location functions ends...
+
+
+  Future<void> _loadRecentlyVIew() async{
+    final prefes = await SharedPreferences.getInstance();
+    final String? savedString = prefes.getString('recent_ads');
+
+    if(savedString != null){
+      final List<dynamic> decodedList = jsonDecode(savedString);
+      final List<Ad> loadedAds =decodedList.map((item) => Ad.fromJson(item)).toList();
+      HomePage.recentlyViewedNotifire.value = loadedAds;
+    }
+  }
+  static Future<void> saveRecentlyViewed() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Convert List<Ad> to Text
+    final List<Ad> currentList = HomePage.recentlyViewedNotifire.value;
+    final String encodedList = jsonEncode(currentList.map((ad) => ad.toJson()).toList());
+    
+    // Save to disk
+    await prefs.setString('recent_ads', encodedList);
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initLocationFlow();
+    _loadRecentlyVIew();
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -208,23 +287,31 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 12.h),
                   HorizontalCars(cardDetails: cardDetails2),
                   SizedBox(height: 24.h),
+                  ValueListenableBuilder(
+                    valueListenable: HomePage.recentlyViewedNotifire,
+                    builder: (context, value, child) {
+                      if (value.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+                      return Column(
+                        children: [
+
+                          RecentlyViewedSection(ads: value),
+                          SizedBox(height: 14.h,),
+                        ]
+                      );
+                    },
+                  )
                 ],
               ),
             ),
 
             // THE ADS GRID (Scrolls underneath the sticky tab)
             SliverToBoxAdapter(
-              child: isLoading
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : ExpandedGrid(
-                      isLoading: isLoading,
-                      cityAds: cityAds,
-                    ),
+              child: ExpandedGrid(
+                isLoading: isLoading,
+                cityAds: cityAds,
+              ),
             ),
           ],
         ),

@@ -39,11 +39,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (value == null || value.isEmpty) {
       return 'Password is required';
     }
-    final passwordRegex =
-       RegExp(
-  r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',);
+    final passwordRegex = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,20}$',
+    );
     if (!passwordRegex.hasMatch(value)) {
-      return 'Password must have uppercase,lowercase,number, and 6+ chars';
+      return 'Password must have 1 upper, lower, number, symbol & 6-20 chars';
     }
     return null;
   }
@@ -123,9 +123,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       await googleSignIn.initialize();
 
       // Step 3: Authenticate user (open Google account chooser)
-      final googleSignInAccount = await googleSignIn.authenticate(
-
-      );
+      final googleSignInAccount = await googleSignIn.authenticate();
 
       // Step 5: Get authentication tokens from Google
       final googleAuth = googleSignInAccount.authentication;
@@ -189,7 +187,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(height: 40.h),
                       // Logo
                       Center(
-                        child: Image.asset('assets/images/olxLogo.png', height: 48.h),
+                        child: Image.asset('assets/images/olxLogo.png',
+                            height: 48.h),
                       ),
                       SizedBox(height: 44.h),
                       // Title
@@ -238,7 +237,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
@@ -298,7 +298,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
@@ -337,7 +338,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         child: ElevatedButton(
                           onPressed: _submitForm,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 59, 130, 246),
+                            backgroundColor:
+                                const Color.fromARGB(255, 59, 130, 246),
                             elevation: 2,
                             padding: EdgeInsets.symmetric(vertical: 16.h),
                             shape: RoundedRectangleBorder(
@@ -382,7 +384,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               Text(
                                 "Sign Up with Google",
                                 style: TextStyle(
-                                  color: const Color.fromARGB(255, 59, 130, 246),
+                                  color:
+                                      const Color.fromARGB(255, 59, 130, 246),
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                 ),

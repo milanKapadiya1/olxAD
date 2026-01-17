@@ -37,15 +37,12 @@ class Ad {
       'location': location,
       'image': image, // or 'image': image if it's a string
       'desc': desc,
-      // Add all other fields here
     };
       }
 }
 
-// 2. Helper function to generate the 30 Ads
 List<Ad> getDummyAds() {
   return [
-    // --- AHMEDABAD ADS (10 Items) ---
     Ad(
       image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c3d?auto=format&fit=crop&w=500&q=60', // Royal Enfield style
       title: 'Royal Enfield Classic 350',

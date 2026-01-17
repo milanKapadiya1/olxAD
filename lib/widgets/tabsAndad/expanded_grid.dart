@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/screens/details/ontapscreen.dart';
+import 'package:olxad/screens/home_page.dart';
 import 'package:olxad/widgets/Ads%20card/ads_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExpandedGrid extends StatefulWidget {
   final bool isLoading;
@@ -42,16 +46,27 @@ class _ExpandedGridState extends State<ExpandedGrid> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 4.h,
-                  crossAxisSpacing: 4.w,
-                  childAspectRatio: 0.65.h, //  Adjust height/width ratio
+                  mainAxisSpacing: 8.h, // Increased spacing
+                  crossAxisSpacing: 8.w, // Increased spacing
+                  childAspectRatio: 0.72.h, // Adjusted - cards are taller now
                 ),
                 itemCount: widget.cityAds.length,
                 itemBuilder: (context, index) {
+                  final singleAd = widget.cityAds[index];
                   final ad = widget.cityAds[index];
                   return AdCard(
                       ad: ad,
-                      onTap: () {
+                      onTap: () async {
+                        List<Ad> currentList =
+                            List.from(HomePage.recentlyViewedNotifire.value);
+                        currentList.removeWhere(
+                            (item) => item.title == singleAd.title);
+                        currentList.insert(0, singleAd);
+                        HomePage.recentlyViewedNotifire.value = currentList;
+                        final prefs = await SharedPreferences.getInstance();
+                        final String encodedData = jsonEncode(
+                            currentList.map((e) => e.toJson()).toList());
+                        await prefs.setString('recent_ads', encodedData);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

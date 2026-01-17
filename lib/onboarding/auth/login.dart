@@ -36,9 +36,9 @@ class _LoginState extends State<Login> {
       return 'Password is required';
     }
     final passwordRegex =
-        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$');
+        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,20}$');
     if (!passwordRegex.hasMatch(value)) {
-      return 'Password must have uppercase,lowercase,number, and 6+ chars';
+      return 'Password must have 1 upper, lower, number, symbol & 6-20 chars';
     }
     return null;
   }
@@ -99,7 +99,8 @@ class _LoginState extends State<Login> {
                       SizedBox(height: 40.h),
                       // Logo
                       Center(
-                        child: Image.asset('assets/images/olxLogo.png', height: 48.h),
+                        child: Image.asset('assets/images/olxLogo.png',
+                            height: 48.h),
                       ),
                       SizedBox(height: 48.h),
                       // Title
@@ -148,7 +149,8 @@ class _LoginState extends State<Login> {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
@@ -208,7 +210,8 @@ class _LoginState extends State<Login> {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 14.h),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.r),
                             borderSide: const BorderSide(
@@ -247,7 +250,8 @@ class _LoginState extends State<Login> {
                         child: ElevatedButton(
                           onPressed: _handleSignIn,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 59, 130, 246),
+                            backgroundColor:
+                                const Color.fromARGB(255, 59, 130, 246),
                             elevation: 2,
                             padding: EdgeInsets.symmetric(vertical: 16.h),
                             shape: RoundedRectangleBorder(
@@ -281,7 +285,8 @@ class _LoginState extends State<Login> {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegistrationScreen(),
+                                  builder: (context) =>
+                                      const RegistrationScreen(),
                                 ),
                                 (route) => false,
                               );
