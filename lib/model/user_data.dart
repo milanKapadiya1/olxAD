@@ -4,12 +4,16 @@ class UserDetails {
   String? password;
   String? location;
   String? userName;
-  UserDetails(
-      {required this.uid,
-      this.email,
-      this.password,
-      this.location,
-      this.userName});
+  String? phoneNumber;
+
+  UserDetails({
+    required this.uid,
+    this.email,
+    this.password,
+    this.location,
+    this.userName,
+    this.phoneNumber,
+  });
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
         uid: json["uid"] ?? '',
@@ -17,6 +21,7 @@ class UserDetails {
         password: json["password"],
         location: json["location"],
         userName: json["userName"],
+        phoneNumber: json["phoneNumber"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,5 +29,7 @@ class UserDetails {
         "email": email,
         "password": password,
         "location": location,
+        "userName": userName,
+        "phoneNumber": phoneNumber,
       };
 }

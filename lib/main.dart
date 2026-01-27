@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
+          // home: OtpScreen(),
+
+          // home: PhoneLog(),
         );
       },
     );

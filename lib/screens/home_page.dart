@@ -10,7 +10,6 @@ import 'package:olxad/widgets/cards/card_details.dart';
 import 'package:olxad/widgets/cards/horizontal_cars.dart';
 import 'package:olxad/widgets/recentlyview.dart';
 import 'package:olxad/widgets/tabsAndad/expanded_grid.dart';
-import 'package:olxad/widgets/tabsAndad/tab_ad_section.dart';
 import 'package:olxad/widgets/topbar/logo_location.dart';
 import 'package:olxad/widgets/topbar/search_bar.dart';
 import 'package:olxad/util/app_theme.dart';
@@ -149,7 +148,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-
   void _showEnableLocationDialog() {
     setState(() {
       isDialogShowing = true;
@@ -177,7 +175,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -197,26 +194,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-    ///////////////////// location functions ends...
+  ///////////////////// location functions ends...
 
-
-  Future<void> _loadRecentlyVIew() async{
+  Future<void> _loadRecentlyVIew() async {
     final prefes = await SharedPreferences.getInstance();
     final String? savedString = prefes.getString('recent_ads');
 
-    if(savedString != null){
+    if (savedString != null) {
       final List<dynamic> decodedList = jsonDecode(savedString);
-      final List<Ad> loadedAds =decodedList.map((item) => Ad.fromJson(item)).toList();
+      final List<Ad> loadedAds =
+          decodedList.map((item) => Ad.fromJson(item)).toList();
       HomePage.recentlyViewedNotifire.value = loadedAds;
     }
   }
+
   static Future<void> saveRecentlyViewed() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     // Convert List<Ad> to Text
     final List<Ad> currentList = HomePage.recentlyViewedNotifire.value;
-    final String encodedList = jsonEncode(currentList.map((ad) => ad.toJson()).toList());
-    
+    final String encodedList =
+        jsonEncode(currentList.map((ad) => ad.toJson()).toList());
+
     // Save to disk
     await prefs.setString('recent_ads', encodedList);
   }
@@ -260,7 +259,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 12.h),
-                  const LogoLocation(),
+                  LogoLocation(cityName: currentCity),
                   SizedBox(height: 18.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -271,19 +270,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   SizedBox(height: 12.h),
                   Divider(color: Colors.grey.shade200, thickness: 1),
                   SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Text("Featured Cars",
-                        style: Theme.of(context).textTheme.titleLarge),
-                  ),
                   SizedBox(height: 12.h),
                   HorizontalCars(cardDetails: cardDetails1),
                   SizedBox(height: 24.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Text("Fresh Recommendations",
-                        style: Theme.of(context).textTheme.titleLarge),
-                  ),
                   SizedBox(height: 12.h),
                   HorizontalCars(cardDetails: cardDetails2),
                   SizedBox(height: 24.h),
@@ -293,13 +282,24 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       if (value.isEmpty) {
                         return const SizedBox.shrink();
                       }
-                      return Column(
-                        children: [
-
-                          RecentlyViewedSection(ads: value),
-                          SizedBox(height: 14.h,),
-                        ]
-                      );
+                      return Column(children: [
+                        RecentlyViewedSection(ads: value),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Freash recommendations",
+                                style: Theme.of(context).textTheme.titleLarge),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        
+                      ]);
                     },
                   )
                 ],
@@ -319,30 +319,3 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 }
-
-// class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
-//   final Widget child;
-//   final double height;
-
-//   _StickyTabBarDelegate({required this.child, required this.height});
-
-//   @override
-//   Widget build(
-//       BuildContext context, double shrinkOffset, bool overlapsContent) {
-//     return Container(
-//       color: AppTheme.backgroundColor,
-//       child: child,
-//     );
-//   }
-
-//   @override
-//   double get maxExtent => height;
-
-//   @override
-//   double get minExtent => height;
-
-//   @override
-//   bool shouldRebuild(_StickyTabBarDelegate oldDelegate) {
-//     return oldDelegate.child != child;
-//   }
-// }

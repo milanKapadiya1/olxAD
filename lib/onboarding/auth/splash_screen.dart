@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppTheme.backgroundColor,
+        backgroundColor: const Color(0xFF3A77FF),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Spacer(),
               Center(
                 child: Image.asset(
-                  'assets/images/olxlogoo.png',
+                  'assets/images/olxmain.png',
                   width: 150.w,
                 ),
               ),
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: AppTheme.textSecondary,
+                    color: const Color.fromARGB(255, 255, 255, 255),
                   ),
                   textAlign: TextAlign.center,
                 ),

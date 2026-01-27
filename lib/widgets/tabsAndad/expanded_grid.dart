@@ -46,9 +46,9 @@ class _ExpandedGridState extends State<ExpandedGrid> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 8.h, // Increased spacing
-                  crossAxisSpacing: 8.w, // Increased spacing
-                  childAspectRatio: 0.72.h, // Adjusted - cards are taller now
+                  mainAxisSpacing: 8.h,
+                  crossAxisSpacing: 8.w,
+                  childAspectRatio: 0.72.h,
                 ),
                 itemCount: widget.cityAds.length,
                 itemBuilder: (context, index) {
@@ -82,7 +82,7 @@ class _ExpandedGridState extends State<ExpandedGrid> {
 //   final bool isLoading;
 //   final List<Ad> cityAds;
 //   const expandedGrid2(
-//       {super.key, required this.cityAds, required this.isLoading});
+//       {super.key, required this. cityAds, required this.isLoading});
 
 //   @override
 //   State<expandedGrid2> createState() => _expandedGrid2State();

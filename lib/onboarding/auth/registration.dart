@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
+import 'package:olxad/onboarding/auth/phone/phone_login_number.dart';
 import 'package:olxad/screens/home_page.dart';
 import 'package:olxad/screens/home_screen.dart';
 import 'package:olxad/util/snack_bar.dart';
@@ -357,6 +358,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       SizedBox(height: 16.h),
+                       SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PhoneLoginNumber(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 59, 130, 246),
+                            elevation: 2,
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                          ),
+                          child: Text(
+                            "Mobile Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 24.h,),
+
                       // Google Sign In Button
                       SizedBox(
                         width: double.infinity,

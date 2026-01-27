@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:olxad/screens/details/liked_ads.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final TextEditingController mysearchController;
@@ -58,7 +59,13 @@ class CustomSearchBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.transparent,
             ),
-            child: Icon(Icons.favorite_border, size: 26.w, color: Colors.black),
+            child: GestureDetector(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LikeScreen())),
+                child: Icon(
+              Icons.favorite_border,
+              size: 26.w,
+              color: Colors.black,
+            )),
             // SvgPicture.asset(
             //   'assets/icons/Heart.svg',
             //   height: 24.h,

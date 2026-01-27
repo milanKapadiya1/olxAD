@@ -6,7 +6,8 @@ import 'package:olxad/util/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Fluttertab extends StatefulWidget {
-  const Fluttertab({super.key});
+  final String? initialCity;
+  const Fluttertab({super.key, this.initialCity});
 
   @override
   State<Fluttertab> createState() => _FluttertabState();
@@ -69,7 +70,16 @@ class _FluttertabState extends State<Fluttertab> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    myTabController = TabController(length: cities.length, vsync: this);
+
+    if (widget.initialCity != null) {
+      final index = cities.indexOf(widget.initialCity!);
+      if (index != -1) {
+        currenttabIndex = index;
+      }
+    }
+
+    myTabController = TabController(
+        length: cities.length, vsync: this, initialIndex: currenttabIndex);
 
     myTabController.addListener(() {
       if (!myTabController.indexIsChanging &&
