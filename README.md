@@ -1,10 +1,12 @@
+Here is the final, updated README.md with the strict hierarchy and formatting maintained. The new feature description regarding location-based ad indexing is included, and the new screenshots are added to the final row of the gallery.
+
 OLX App Clone (Flutter + Firebase)
 This is a functional OLX-style mobile application built using Flutter with Firebase as the backend. The app replicates key marketplace features, allowing users to buy, sell, and manage ads with a focus on performance and user experience.
 
 🔥 Features
-Google Location Integration (New) The app now utilizes Google Location services to fetch and display ads relevant to the user's current area. This replaces static filtering with dynamic, real-world location based fetching.
+Google Location Integration (New) The app now utilizes Google Location services to fetch and display ads relevant to the user's current area. This replaces static filtering with dynamic, real-world location-based fetching.
 
-Smart Favorites List (New) Users can "Like" ads to save them to their favorites. This feature is optimized for performance—taping "Like" updates the UI instantly without triggering a full page rebuild, ensuring a smooth scrolling experience.
+Smart Favorites List (New) Users can "Like" ads to save them to their favorites. This feature is optimized for performance—tapping "Like" updates the UI instantly without triggering a full page rebuild, ensuring a smooth scrolling experience.
 
 Recently Viewed Items (New) Just like professional marketplace apps, this project tracks browsing history. It automatically saves and displays the items a user has recently visited for quick access.
 
