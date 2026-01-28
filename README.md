@@ -10,7 +10,7 @@ Recently Viewed Items (New) Just like professional marketplace apps, this projec
 
 Firebase Authentication Secure user registration and login using email/password. Google Sign-In is integrated for a seamless onboarding experience.
 
-Create and Save Ads Users can create detailed ads which are stored in Cloud Firestore linked to their unique User ID.
+Create and Save Ads Users can create detailed ads which are stored in Cloud Firestore. Ads are indexed by the specific location entered during creation, ensuring they automatically appear to other users browsing in that same area.
 
 In-Memory Caching To reduce network costs and improve speed, fetched ads are cached in memory. Switching tabs or navigating back does not re-fetch data unnecessarily.
 
@@ -32,6 +32,6 @@ Firebase Firestore (NoSQL Database for ads and user data)
 <div align="center"> <img src="https://github.com/user-attachments/assets/864fcb3d-57e6-43b0-a88a-1ab30d5518eb" width="23%" /> <img src="https://github.com/user-attachments/assets/d15d759e-35e2-424c-a736-38a093585225" width="23%" /> <img src="https://github.com/user-attachments/assets/1e3876b1-53a7-4726-864d-4a84a4e117a2" width="23%" /> <img src="https://github.com/user-attachments/assets/9469581a-ac18-4903-911b-88316160fe0d" width="23%" /> </div>
 
 
-<div align="center"> <img src="https://github.com/user-attachments/assets/97c2c827-35a2-4543-94cb-4a88c2ac89ef" width="23%" /> </div>
+<div align="center"> <img src="https://github.com/user-attachments/assets/97c2c827-35a2-4543-94cb-4a88c2ac89ef" width="23%" /> <img src="https://github.com/user-attachments/assets/e8ddae51-e2bd-47e4-a2c7-a71d783a8c0b" width="23%" /> <img src="https://github.com/user-attachments/assets/5c5d0b44-65c9-416a-941f-cb459dab58b8" width="23%" /> </div>
 
 This project is in active development, focusing on clean architecture, scalable Firebase integration, and advanced Flutter UI patterns.
