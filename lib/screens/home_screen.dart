@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; // 1. Import Bloc
+import 'package:olxad/bloc/homepage/home_bloc.dart';
+import 'package:olxad/bloc/homepage/home_event.dart';
 import 'package:olxad/screens/createad.dart';
 import 'package:olxad/screens/details/liked_ads.dart';
 import 'package:olxad/screens/home_page.dart';
@@ -6,6 +9,7 @@ import 'package:olxad/screens/profile_screen.dart';
 import 'package:olxad/screens/purchase_screen.dart';
 import 'package:olxad/widgets/bottom_nav/custom_navigation.dart';
 import 'package:olxad/util/app_theme.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,17 +19,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-// //  final  emailController = TextEditingController();
-//     final email = FirebaseAuth.instance.currentUser?.email;
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const LikeScreen(),
-    Createad(),
-    const PurchaseScreen(),
-    const ProfileScreen(),
-  ];
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    _pages = [
+      BlocProvider(
+        create: (context) => HomeBloc()..add(FetchHomeData()),
+        child: const HomePage(),
+      ),
+      const LikeScreen(),
+      Createad(),
+      const PurchaseScreen(),
+      const ProfileScreen(),
+    ];
+  }
+
   void _onItemSelected(int index) {
     setState(() {
       _selectedIndex = index;
@@ -37,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppTheme.backgroundColor,
-        body: IndexedStack(index: _selectedIndex, children: _pages, ),
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             boxShadow: [
