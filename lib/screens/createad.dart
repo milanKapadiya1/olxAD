@@ -105,7 +105,7 @@ class _CreateadState extends State<Createad> {
                     borderRadius: BorderRadius.circular(12.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       )
@@ -117,7 +117,7 @@ class _CreateadState extends State<Createad> {
                         height: 40.h,
                         width: 40.h,
                         decoration: BoxDecoration(
-                          color: AppTheme.primaryColor.withOpacity(0.1),
+                          color: AppTheme.primaryColor.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(Icons.person,

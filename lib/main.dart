@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/manager/favorite_manager.dart';
+import 'package:olxad/manager/purchase_manager.dart';
 import 'package:olxad/onboarding/auth/splash_screen.dart';
 import 'package:olxad/firebase_options.dart';
 import 'package:olxad/util/app_theme.dart';
@@ -12,9 +13,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FavoriteManager().init(); // Load the saved likes from disk
+  await PurchaseManager().init(); //  purchases from disk
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

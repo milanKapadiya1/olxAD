@@ -63,10 +63,11 @@ class _OtpScreenState extends State<OtpScreen> {
       String message = "An error occurred";
       if (e.code == 'invalid-verification-code') {
         message = "Invalid OTP. Please try again.";
-      }
+      }if(mounted){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message), backgroundColor: Colors.red),
       );
+      }
     }
   }
 
@@ -98,7 +99,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 width: 120.w,
                 height: 120.w,
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryColor.withOpacity(0.1),
+                  color: AppTheme.primaryColor.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -141,7 +142,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 keyboardType: TextInputType.number,
                 autoFocus: true,
                 numberOfFields: 6,
-                borderColor: AppTheme.primaryColor.withOpacity(0.2),
+                borderColor: AppTheme.primaryColor.withValues(alpha: 0.2),
                 focusedBorderColor: AppTheme.primaryColor,
                 showFieldAsBox: true,
                 fieldWidth: 47.w,
@@ -176,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       borderRadius: BorderRadius.circular(30.r),
                     ),
                     elevation: 5,
-                    shadowColor: AppTheme.primaryColor.withOpacity(0.3),
+                    shadowColor: AppTheme.primaryColor.withValues(alpha: 0.3),
                   ),
                   child: isLoading
                       ? const CircularProgressIndicator()

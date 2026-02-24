@@ -67,6 +67,9 @@ class _ExpandedGridState extends State<ExpandedGrid> {
                         final String encodedData = jsonEncode(
                             currentList.map((e) => e.toJson()).toList());
                         await prefs.setString('recent_ads', encodedData);
+
+                        if (!context.mounted) return;
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -42,6 +42,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   
@@ -63,4 +64,11 @@ flutter_native_splash:
     color: "#FFFFFF"
     image: null
     icon_background_color: "#FFFFFF"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/olx-logo-hd.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/olx-logo-hd.png"
 

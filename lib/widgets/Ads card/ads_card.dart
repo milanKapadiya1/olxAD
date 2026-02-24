@@ -7,8 +7,10 @@ import 'package:olxad/manager/favorite_manager.dart';
 class AdCard extends StatelessWidget {
   final Ad ad;
   final VoidCallback onTap;
+  final bool? isPurchased;
 
-  const AdCard({super.key, required this.ad, required this.onTap});
+  const AdCard(
+      {super.key, required this.ad, required this.onTap, this.isPurchased});
 
   @override
   Widget build(BuildContext context) {
@@ -60,29 +62,44 @@ class AdCard extends StatelessWidget {
                 Positioned(
                   top: 8.h,
                   right: 8.w,
-                  child: ValueListenableBuilder<List<Ad>>(
-                    valueListenable: FavoriteManager().favorites,
-                    builder: (context, favorites, child) {
-                      final isFavorite = FavoriteManager().isLiked(ad);
-                      return GestureDetector(
-                        onTap: () {
-                          FavoriteManager().toggleFavorite(ad);
-                        },
-                        child: Container(
+                  child: isPurchased == true
+                      ? Container(
                           padding: EdgeInsets.all(6.w),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            Icons.check_circle,
                             size: 16.sp,
-                            color: isFavorite ? Colors.red : Colors.black,
+                            color: Colors.green,
                           ),
+                        )
+                      : ValueListenableBuilder<List<Ad>>(
+                          valueListenable: FavoriteManager().favorites,
+                          builder: (context, favorites, child) {
+                            final isFavorite = FavoriteManager().isLiked(ad);
+                            return GestureDetector(
+                              onTap: () {
+                                FavoriteManager().toggleFavorite(ad);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(6.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  size: 16.sp,
+                                  color: isFavorite ? Colors.red : Colors.black,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),

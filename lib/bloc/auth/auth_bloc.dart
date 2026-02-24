@@ -7,7 +7,6 @@ import 'package:olxad/model/user_data.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class RegestrationBloc extends Bloc<RegestrationEvent, RegestrationState> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
   RegestrationBloc() : super(RegestrationInitial()) {
@@ -75,16 +74,16 @@ class RegestrationBloc extends Bloc<RegestrationEvent, RegestrationState> {
         emit(RegestrationFailure(error: e.toString()));
       }
     });
-    on<LoginSubmitted>((event, emit)async {
+    on<LoginSubmitted>((event, emit) async {
       emit(RegestrationLoading());
-      try{
+      try {
         final firebaseAuth = FirebaseAuth.instance;
         await firebaseAuth.signInWithEmailAndPassword(
           email: event.email,
           password: event.password,
         );
         emit(RegestrationSuccess());
-      }on FirebaseAuthException catch (e) {
+      } on FirebaseAuthException catch (e) {
         String message = 'Login failed';
         if (e.code == 'user-not-found') {
           message = 'No user found for that email.';

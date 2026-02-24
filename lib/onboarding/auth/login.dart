@@ -346,7 +346,7 @@ class _LoginState extends State<Login> {
                   if (state is RegestrationLoading)
                     Positioned.fill(
                       child: Container(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         child: const Center(
                           child: CircularProgressIndicator(
                             color: Color.fromARGB(255, 59, 130, 246),

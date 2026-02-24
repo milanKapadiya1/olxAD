@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:olxad/onboarding/auth/phone/otp_screen.dart';
 import 'package:olxad/screens/home_page.dart';
 import 'package:olxad/util/app_theme.dart';
@@ -42,7 +41,7 @@ class _PhoneLoginNumberState extends State<PhoneLoginNumber> {
                   (route) => false);
             }
           } on FirebaseAuthException catch (e) {
-            print('faild ${e.message}');
+            debugPrint('faild ${e.message}');
           }
         },
         verificationFailed: (FirebaseException excptions) {
@@ -104,7 +103,7 @@ class _PhoneLoginNumberState extends State<PhoneLoginNumber> {
               SizedBox(height: 8.h),
               CircleAvatar(
                 radius: 30.r,
-                backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
+                backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                 child: Icon(Icons.person,
                     size: 36.sp, color: theme.colorScheme.primary),
               ),

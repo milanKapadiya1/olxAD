@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:olxad/model/user_data.dart';
 import 'package:olxad/onboarding/auth/login.dart';
-import 'package:olxad/screens/flutterTab.dart';
+import 'package:olxad/screens/flutter_tab.dart';
 import 'package:olxad/util/app_theme.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -88,6 +88,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             .collection('/users')
             .doc(user?.uid)
             .update({'userName': usernameController.text});
+
+        if (!mounted) return;
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Username added successfully"),
@@ -98,6 +101,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.pop(context); // Close the bottom sheet
       } catch (e) {
         debugPrint("Error adding username: $e");
+
+        if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:olxad/manager/favorite_manager.dart';
 import 'package:olxad/model/ad_model.dart';
-import 'package:olxad/model/likeUItile.dart';
+import 'package:olxad/model/like_ui_tile.dart';
 import 'package:olxad/util/app_theme.dart';
 
 class LikeScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class LikeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.favorite_border,
-                  size: 64, color: AppTheme.textSecondary.withOpacity(0.5)),
+                  size: 64, color: AppTheme.textSecondary.withValues(alpha: 0.5)),
               const SizedBox(height: 16),
               Text(
                 "You don't have any liked items",

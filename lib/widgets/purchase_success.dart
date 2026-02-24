@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
 import 'package:olxad/util/app_theme.dart';
-import 'package:olxad/screens/home_page.dart'; // import if you need to route to home
+
+import 'package:olxad/manager/purchase_manager.dart';
 import 'package:lottie/lottie.dart';
 
 class PurchaseSuccess extends StatelessWidget {
@@ -292,6 +293,8 @@ class PurchaseSuccess extends StatelessWidget {
             height: 50.h,
             child: ElevatedButton(
               onPressed: () {
+                PurchaseManager()
+                    .addPurchase(ad); // <--- Actual logic added here
                 showDialog(
                   context: context,
                   barrierDismissible: false,

@@ -54,7 +54,7 @@ class _CustomBottomnavState extends State<CustomBottomnav> {
                 color: AppTheme.primaryColor,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primaryColor.withOpacity(0.4),
+                    color: AppTheme.primaryColor.withValues(alpha: 0.4),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),

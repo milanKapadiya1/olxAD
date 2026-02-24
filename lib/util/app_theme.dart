@@ -23,7 +23,6 @@ class AppTheme {
         primary: primaryColor,
         secondary: accentColor,
         surface: surfaceColor,
-        background: backgroundColor,
         error: errorColor,
         brightness: Brightness.light,
       ),
@@ -93,7 +92,7 @@ class AppTheme {
       cardTheme: CardTheme(
         color: surfaceColor,
         elevation: 2,
-        shadowColor: Colors.black.withOpacity(0.05),
+        shadowColor: Colors.black.withValues(alpha: 0.05),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),
         ),
@@ -105,7 +104,7 @@ class AppTheme {
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
           elevation: 4,
-          shadowColor: primaryColor.withOpacity(0.4),
+          shadowColor: primaryColor.withValues(alpha: 0.4),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),

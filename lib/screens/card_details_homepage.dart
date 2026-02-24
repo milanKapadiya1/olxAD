@@ -86,7 +86,7 @@ class _CardDetailsHomepageState extends State<CardDetailsHomepage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isSelected
-                                ? AppTheme.accentColor.withOpacity(0.1)
+                                ? AppTheme.accentColor.withValues(alpha: 0.1)
                                 : Colors.transparent,
                           ),
                           padding: EdgeInsets.all(8.w),
