@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:olxad/manager/favorite_manager.dart';
 import 'package:olxad/model/ad_model.dart';
+import 'package:olxad/widgets/purchase_success.dart';
 
 class Ontapscreen extends StatelessWidget {
   final Ad adsDetails;
@@ -38,17 +39,20 @@ class Ontapscreen extends StatelessWidget {
             valueListenable: FavoriteManager().favorites,
             builder: (context, value, child) {
               final isLikded = FavoriteManager().isLiked(adsDetails);
-              return  IconButton(
-                onPressed: () {
-                  FavoriteManager().toggleFavorite(adsDetails);
-                                  },
-                icon: SvgPicture.asset(
-                  'assets/icons/Heart.svg',
-                  height: 24,
-                  colorFilter: ColorFilter.mode(isLikded? const Color.fromARGB(255, 234, 67, 67) : Colors.white, BlendMode.srcIn),
-                ));
+              return IconButton(
+                  onPressed: () {
+                    FavoriteManager().toggleFavorite(adsDetails);
+                  },
+                  icon: SvgPicture.asset(
+                    'assets/icons/Heart.svg',
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                        isLikded
+                            ? const Color.fromARGB(255, 234, 67, 67)
+                            : Colors.white,
+                        BlendMode.srcIn),
+                  ));
             },
-           
           )
         ],
       ),
@@ -162,10 +166,18 @@ class Ontapscreen extends StatelessWidget {
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.chat, color: Colors.white, size: 20.sp),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PurchaseSuccess(ad: adsDetails),
+                    ),
+                  );
+                },
+                icon:
+                    Icon(Icons.shopping_cart, color: Colors.white, size: 20.sp),
                 label: Text(
-                  'Chat',
+                  'Purchase Now',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -185,8 +197,8 @@ class Ontapscreen extends StatelessWidget {
             SizedBox(width: 12.w),
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.call, color: Colors.white, size: 20.sp),
+                onPressed: null, // Disabled
+                icon: Icon(Icons.lock, color: Colors.white, size: 20.sp),
                 label: Text(
                   'Call',
                   style: TextStyle(
@@ -196,7 +208,7 @@ class Ontapscreen extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF005EB8),
+                  disabledBackgroundColor: Colors.grey.shade400,
                   padding: EdgeInsets.symmetric(vertical: 14.h),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.r),
@@ -208,8 +220,6 @@ class Ontapscreen extends StatelessWidget {
           ],
         ),
       ),
-    )
-    
-    );
+    ));
   }
 }

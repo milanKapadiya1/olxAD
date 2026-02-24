@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:olxad/model/ad_model.dart';
+import 'package:olxad/manager/favorite_manager.dart';
 
 class AdCard extends StatelessWidget {
   final Ad ad;
@@ -59,17 +60,28 @@ class AdCard extends StatelessWidget {
                 Positioned(
                   top: 8.h,
                   right: 8.w,
-                  child: Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 16.sp,
-                      color: Colors.black,
-                    ),
+                  child: ValueListenableBuilder<List<Ad>>(
+                    valueListenable: FavoriteManager().favorites,
+                    builder: (context, favorites, child) {
+                      final isFavorite = FavoriteManager().isLiked(ad);
+                      return GestureDetector(
+                        onTap: () {
+                          FavoriteManager().toggleFavorite(ad);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(6.w),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            size: 16.sp,
+                            color: isFavorite ? Colors.red : Colors.black,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

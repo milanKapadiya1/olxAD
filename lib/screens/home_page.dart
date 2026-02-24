@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,7 +82,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       final List<dynamic> decodedList = jsonDecode(savedString);
       final List<Ad> loadedAds =
           decodedList.map((item) => Ad.fromJson(item)).toList();
-      HomePage.recentlyViewedNotifire.value = loadedAds;
+
+      // Check if the list content is different to avoid flickering (unnecessary rebuilds)
+      if (!listEquals(HomePage.recentlyViewedNotifire.value, loadedAds)) {
+        HomePage.recentlyViewedNotifire.value = loadedAds;
+      }
     }
   }
 

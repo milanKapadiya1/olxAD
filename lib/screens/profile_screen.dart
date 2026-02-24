@@ -111,6 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Edit Profile Bottom Sheet
   void _showEditProfileBottomSheet() {
+    bool isUpdating = false;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -119,77 +121,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom +
-                MediaQuery.of(context).padding.bottom +
-                20.h,
-            left: 20.w,
-            right: 20.w,
-            top: 20.h,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 50.w,
-                  height: 5.h,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Text("Edit Profile",
-                  style: Theme.of(context).textTheme.headlineMedium),
-              SizedBox(height: 20.h),
-              if (emailController.text.isNotEmpty)
-                TextField(
-                  controller: emailController,
-                  readOnly: true,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email_outlined),
-                  ),
-                )
-              else if (phoneController.text.isNotEmpty)
-                TextField(
-                  controller: phoneController,
-                  readOnly: true,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number',
-                    prefixIcon: Icon(Icons.phone_android),
+        return StatefulBuilder(builder: (context, setModalState) {
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom +
+                  MediaQuery.of(context).padding.bottom +
+                  20.h,
+              left: 20.w,
+              right: 20.w,
+              top: 20.h,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 50.w,
+                    height: 5.h,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
-              SizedBox(height: 16.h),
-              TextField(
-                controller: usernameController,
-                style: Theme.of(context).textTheme.bodyLarge,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  prefixIcon: Icon(Icons.person_outline),
+                SizedBox(height: 20.h),
+                Text("Edit Profile",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                SizedBox(height: 20.h),
+                if (emailController.text.isNotEmpty)
+                  TextField(
+                    controller: emailController,
+                    readOnly: true,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: Icon(Icons.email_outlined),
+                    ),
+                  )
+                else if (phoneController.text.isNotEmpty)
+                  TextField(
+                    controller: phoneController,
+                    readOnly: true,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number',
+                      prefixIcon: Icon(Icons.phone_android),
+                    ),
+                  ),
+                SizedBox(height: 16.h),
+                TextField(
+                  controller: usernameController,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                    prefixIcon: Icon(Icons.person_outline),
+                  ),
                 ),
-              ),
-              SizedBox(height: 32.h),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (usernameController.text.isNotEmpty) {
-                      _addusername();
-                    }
-                  },
-                  child: const Text('Update Username'),
+                SizedBox(height: 32.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: isUpdating
+                        ? null
+                        : () async {
+                            if (usernameController.text.isNotEmpty) {
+                              setModalState(() {
+                                isUpdating = true;
+                              });
+                              await _addusername();
+                              if (mounted) {
+                                setModalState(() {
+                                  isUpdating = false;
+                                });
+                              }
+                            }
+                          },
+                    child: isUpdating
+                        ? SizedBox(
+                            height: 20.h,
+                            width: 20.h,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text('Update Username'),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.h),
-            ],
-          ),
-        );
+                SizedBox(height: 20.h),
+              ],
+            ),
+          );
+        });
       },
     );
   }

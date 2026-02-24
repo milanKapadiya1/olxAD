@@ -14,7 +14,7 @@ Future<void> main() async {
   await FavoriteManager().init(); // Load the saved likes from disk
   runApp(const MyApp());
 }
-// pohUk0ryJdPtdhbcSRiuuTGiUqA3 //
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
