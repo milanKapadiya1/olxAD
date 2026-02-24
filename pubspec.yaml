@@ -43,6 +43,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.13.1
+  image: ^4.8.0
 
 flutter:
   
@@ -55,20 +56,20 @@ flutter:
     - assets/gif/
 
 flutter_native_splash:
-  color: "#FFFFFF"   # pure white background
+  color: "#3A77FF"
   android: true
   ios: true
-  image: null
+  image: "assets/images/transparent.png"
 
   android_12:
-    color: "#FFFFFF"
-    image: null
-    icon_background_color: "#FFFFFF"
+    color: "#3A77FF"
+    image: "assets/images/transparent.png"
+    icon_background_color: "#3A77FF"
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/olx-logo-hd.png"
+  image_path: "assets/images/olx-logo-padded.png"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/images/olx-logo-hd.png"
+  adaptive_icon_foreground: "assets/images/olx-logo-padded.png"
 

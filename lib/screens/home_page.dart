@@ -58,19 +58,74 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Text("Location Needed"),
-        content:
-            const Text("Please turn on your location to see ads near you."),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Geolocator.openLocationSettings();
-              Navigator.pop(context);
-            },
-            child: const Text("Open Settings"),
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: Container(
+          padding: EdgeInsets.all(20.w),
+          decoration: BoxDecoration(
+            color: const Color(0xFF3A77FF),
+            borderRadius: BorderRadius.circular(12.r),
           ),
-        ],
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Device Location off!",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(Icons.close, color: Colors.white, size: 24.sp),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.h),
+              Text(
+                "Share your current location to easily buy and sell near you.",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.white,
+                  height: 1.4,
+                ),
+              ),
+              SizedBox(height: 24.h),
+              GestureDetector(
+                onTap: () {
+                  Geolocator.openLocationSettings();
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 2.h),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                  ),
+                  child: Text(
+                    "Enable Location",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

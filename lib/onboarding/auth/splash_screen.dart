@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _goToNext() async {
-    await Future.delayed(const Duration(milliseconds: 2500));
+    // Shorter duration here because `flutter_native_splash` now absorbs the physical app loading time!
+    await Future.delayed(const Duration(seconds: 1));
 
     if (mounted) {
       Navigator.pushReplacement(
