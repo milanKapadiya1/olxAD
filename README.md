@@ -1,5 +1,35 @@
-📍 Local Marketplace App (OLX Clone)A location-based C2C marketplace where users can buy and sell items within their own city. This project isn't just a UI clone—it’s built to handle real-world data efficiently using a professional-grade architecture.🚀 What this app doesSmart Location Ads: Automatically detects where you are and shows you ads from nearby sellers.Real-Time Updates: Uses Firebase to make sure new listings and "Favorites" update instantly without refreshing.Secure Login: Users can sign up quickly using Google Sign-In or their Email.Recently Viewed: Keeps track of what you've looked at (stored locally) so you can find it again easily.Smooth Scrolling: Implemented "lazy loading" so the app stays fast even if there are hundreds of listings.Ad Posting: Sellers can upload images and details, which are automatically tagged with their location.🏗️ How it’s builtI chose a professional setup to keep the code clean and the app fast:Clean Architecture: I split the app into three layers (Domain, Data, and Presentation). This makes it much easier to fix bugs or add new features later without breaking the whole app.BLoC State Management: This handles the "logic" behind the scenes—like making sure the UI updates only when it needs to (keeping the app at a smooth 60 FPS).Firebase Backend: Handles the database (Firestore), user images (Storage), and accounts (Auth) in real-time.Performance Tricks: I added image optimization and memory caching so the app doesn't waste data or battery by re-downloading the same ads twice.🛠️ Tech StackToolUsageFlutterFrontend FrameworkBLoCState ManagementFirebaseDatabase, Auth, and StorageGoogle Maps APIFetching & Tagging LocationsShared PreferencesLocal storage for "Recently Viewed"
+# 📍 Local Marketplace (OLX Clone)
 
+A simple, fast app for buying and selling items nearby. I built this because I wanted to create a marketplace that feels instant and handles location data properly, rather than just making a basic UI.
+
+### 🚀 Key Features
+
+* **Nearby Ads:** Automatically detects your city and shows you items listed nearby.
+* **Instant Updates:** Favorites and listings update in real-time without needing to refresh.
+* **Fast & Smooth:** Uses "lazy loading" and memory caching so the app stays fast, even with lots of photos.
+* **Secure Login:** Support for both Google Sign-In and standard Email accounts.
+* **Smart History:** Keeps track of your recently viewed ads locally so you can find them again quickly.
+
+### 🏗️ How it’s Built (Technical Side)
+
+I focused on writing "Clean Code" so the app is easy to update and doesn't crash:
+
+* **Clean Architecture:** I split the app into three layers (Domain, Data, and Presentation). This keeps the business logic separate from the UI.
+* **BLoC State Management:** This handles all the app logic behind the scenes, ensuring the UI only rebuilds when it absolutely has to.
+* **Firebase Backend:** I used Firestore for the database, Firebase Auth for security, and Cloud Storage for user images.
+* **Optimized Performance:** Images are compressed before uploading to save data and memory.
+
+
+
+### 🛠️ Tech Stack
+
+| Tool | What I used it for |
+| :--- | :--- |
+| **Flutter** | The main app framework |
+| **BLoC** | Managing the app's state and logic |
+| **Firebase** | Database, Photos, and User Accounts |
+| **Google APIs** | Fetching and tagging locations |
+| **SharedPrefs** | Storing "Recently Viewed" items locally |
 ## 📸 App Screenshots
 
 <div align="center">
@@ -28,5 +58,6 @@
     <img src="https://github.com/user-attachments/assets/e8ddae51-e2bd-47e4-a2c7-a71d783a8c0b" width="23%" />
     <img src="https://github.com/user-attachments/assets/5c5d0b44-65c9-416a-941f-cb459dab58b8" width="23%" />
 </div>
+
 
 
